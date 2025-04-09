@@ -5,6 +5,7 @@ using UnityEngine;
 public class controlador : MonoBehaviour
 {
     Animator animation;
+    public bool top;
 
     // Start is called before the first frame update
     void Start()
@@ -22,11 +23,13 @@ public class controlador : MonoBehaviour
     {
         if (animation != null && Input.GetKeyDown(KeyCode.E)) 
         {
-             animation.SetBool("move", true);
+            animation.SetBool("move", true);
+            top = true;
         }
         if (animation != null && Input.GetKeyDown(KeyCode.Q))
         {
             animation.SetBool("move", false);
+            top = false;
         }
 
 
