@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class cameraMove : MonoBehaviour
@@ -11,13 +10,16 @@ public class cameraMove : MonoBehaviour
 
     private void Update()
     {
-        if (objetivo != null) // es para que cuando la camra pierda al personaje, o sea, Muera. No salte ningun error 
+        if (objetivo != null)
         {
-            //registro de seguimiento de la camara
-            Vector3 targetpos = objetivo.position + desplazamiento;
+            // Seguimiento solo en X y Y, manteniendo la Z de la cámara fija
+            Vector3 targetPos = new Vector3(
+                objetivo.position.x + desplazamiento.x,
+                objetivo.position.y + desplazamiento.y,
+                transform.position.z // aquí fijamos la Z para mantener la vista lateral
+            );
 
-            // suavisado de l movimiento de la camara
-            transform.position = Vector3.SmoothDamp(transform.position, targetpos, ref velocidad, smoothTime);
+            transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocidad, smoothTime);
         }
     }
 }
