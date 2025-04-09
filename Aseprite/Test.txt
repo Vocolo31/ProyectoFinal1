@@ -1,1 +1,25 @@
-Test
+Props (Utensilios del personaje/Mecanicas)
+-Por definirse; Escudo/Parry
+-Espada que se convierte en latigo
+-Acompañante que otorga poder. (esta relacionado al personaje?)
+-Dash
+
+Personaje
+-Que raza es?
+Humano
+-Genero biologico?
+Masculino
+-Alguna motivación, Historia? (Flashbacks del personaje?)
+Algun ser querido que volver a ver (Revivir?)
+-Vestimenta
+el Guia/Acompañante
+
+Entorno (Insiración geografica)
+[Catacumbas]
+
+-Queremos contar una historia con el entorno, algun tipo de pasado.
+
+-Ambientación (Colores, Luz)
+Poca luz, luz emitida por el guía que sigue al personaje.
+-el personaje proviene del lugar, o es un forastero.
+Esta familiarizado con el entrono pero se puede decir que es un forastero.
