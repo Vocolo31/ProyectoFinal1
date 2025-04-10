@@ -19,14 +19,18 @@ public class playerMove : MonoBehaviour
     public LayerMask capaSuelo; // filtro que identifica si es suelo o no
     public bool hit; // registra si el rayCast colisiona
     bool dobelJump = false; // doble salto
+    bool running = true ; // chequea si esta corriendo
+    bool jumping; // chequea si esta saltando
     Animator animator; // Controlador de animacion
     // Start is called before the first frame update
     void Start()
     {
-        // componentes
+        // chequeo de componentes
         animator = GetComponent<Animator>();
         rb= GetComponent<Rigidbody>();
+        
     }
+
 
     // Update is called once per frame
     void Update()
@@ -68,6 +72,7 @@ public class playerMove : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, 0); // para mayor control se usa velocity en vez de AddForce
             coyoteTimeCounter = 0; // Se gasta el Coyote Time al saltar
             dobelJump = true;
+            jumping = true;
 
         }
 
@@ -77,21 +82,29 @@ public class playerMove : MonoBehaviour
             Debug.Log("funciona");
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, 0);
             dobelJump = false;
+            jumping = false;
         }
+
         
 
     }
+
     public void sprint()
     {
         // controlador de correr
         if (hit == true && Input.GetKey(KeyCode.LeftShift))
         {
             speed = sprintSpeed;
-        }
-        else
-        {
             
+        }
+        else 
+        {
+            running = false;
             speed = 3f;
+        }
+        if (!hit && jumping == true && dobelJump == true && !running)
+        {
+            speed = sprintSpeed;
         }
     }
 

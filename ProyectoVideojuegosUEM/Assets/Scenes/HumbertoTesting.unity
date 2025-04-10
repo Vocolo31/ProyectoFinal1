@@ -341,6 +341,9 @@ MonoBehaviour:
   speed: 3
   jumpForce: 5
   sprintSpeed: 5
+  dashTimer: 0.2
+  dashForce: 20
+  timeCanDash: 1
   coyoteTime: 0.2
   enSuelo: 1
   longitudrayCast: 1.05
