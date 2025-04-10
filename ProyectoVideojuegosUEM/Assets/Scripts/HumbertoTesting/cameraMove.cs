@@ -12,13 +12,14 @@ public class cameraMove : MonoBehaviour
     {
         if (objetivo != null)
         {
-            // Seguimiento solo en X y Y, manteniendo la Z de la cámara fija
+            // Seguimiento solo en X y Y manteniendo la Z de la cámara fija
             Vector3 targetPos = new Vector3(
                 objetivo.position.x + desplazamiento.x,
                 objetivo.position.y + desplazamiento.y,
-                transform.position.z// aquí fijamos la Z para mantener la vista lateral
+                transform.position.z// fijar la Z para mantener la vista lateral
             );
 
+            // suvisado de movimiento de la camara
             transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocidad, smoothTime);
         }
     }

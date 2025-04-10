@@ -338,12 +338,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098ee9a62c9228a4f910192a0fdd24ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  Speed: 3
-  jumpForce: 3
+  speed: 3
+  jumpForce: 5
+  sprintSpeed: 5
   coyoteTime: 0.2
   enSuelo: 1
-  longitudrayCast: 1.56
+  longitudrayCast: 1.05
   capaSuelo:
     serializedVersion: 2
     m_Bits: 8
