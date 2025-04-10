@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 1512137581}
   - component: {fileID: 1512137580}
   - component: {fileID: 1512137586}
+  - component: {fileID: 1512137587}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -341,7 +342,7 @@ MonoBehaviour:
   speed: 3
   jumpForce: 5
   sprintSpeed: 5
-  dashTimer: 0.2
+  dashinTime: 0
   dashForce: 20
   timeCanDash: 1
   coyoteTime: 0.2
@@ -351,6 +352,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   hit: 0
+--- !u!114 &1512137587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512137579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80fdcb4a483094747a80a99cd42c3bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashinTime: 0.2
+  dashForce: 50
+  timeCanDash: 1
 --- !u!1 &1893435528
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,6 +32,8 @@ public class playerMove : MonoBehaviour
     bool jumping; // chequea si esta saltando
     Animator animator; // Controlador de animacion
     float direction;
+    private DashPlayer dash;
+    public float Directtion => direction;
 
     // Start is called before the first frame update
     void Start()
@@ -39,9 +41,10 @@ public class playerMove : MonoBehaviour
         // chequeo de componentes
         animator = GetComponent<Animator>();
         rb= GetComponent<Rigidbody>();
+        dash = GetComponent<DashPlayer>();
 
         // controles del movimiento
-        float direction = Input.GetAxis("Horizontal");
+        direction = Input.GetAxis("Horizontal");
 
     }
 
@@ -51,12 +54,19 @@ public class playerMove : MonoBehaviour
     {
         //llamado
         Move();
-        jump();
         sprint();
+        if (!dash.Dashing)
+        {
+            jump();
+        }
     }
+
+    
 
     private void Move()
     {
+        direction = Input.GetAxis("Horizontal");
+
         //aplicar el control
         Vector3 velocidadActual = rb.velocity;
 
@@ -87,6 +97,8 @@ public class playerMove : MonoBehaviour
 
         }
 
+       
+
         // Doble salto
         if (!hit && dobelJump == true && Input.GetKeyDown(KeyCode.Space))
         {
@@ -97,10 +109,6 @@ public class playerMove : MonoBehaviour
         }
 
         
-
-    }
-    public void dash()
-    {
 
     }
 
@@ -123,16 +131,6 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private IEnumerable Dash()
-    {
-        dashing = true;
-        canDash = false;
-        rb.velocity = new Vector3(direction * dashForce, 0f);
-        yield return new WaitForSeconds(dashinTime);
-        dashing = false;
-        yield return new WaitForSeconds(timeCanDash);
-        canDash = true;
-    }
 
     public void OnDrawGizmos()
     {
