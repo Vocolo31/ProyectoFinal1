@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class controlador : MonoBehaviour
 {
-    Animator animation;
+    Animator animatio;
     public bool top;
 
     // Start is called before the first frame update
     void Start()
     {
-        animation = GetComponent<Animator>();
+        animatio = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -21,14 +21,14 @@ public class controlador : MonoBehaviour
 
     public void control()
     {
-        if (animation != null && Input.GetKeyDown(KeyCode.E)) 
+        if (animatio != null && Input.GetKeyDown(KeyCode.E)) 
         {
-            animation.SetBool("move", true);
+            animatio.SetBool("move", true);
             top = true;
         }
-        if (animation != null && Input.GetKeyDown(KeyCode.Q))
+        if (animatio != null && Input.GetKeyDown(KeyCode.Q))
         {
-            animation.SetBool("move", false);
+            animatio.SetBool("move", false);
             top = false;
         }
 

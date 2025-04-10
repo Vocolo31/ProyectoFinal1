@@ -7,7 +7,7 @@ public class cameraMove : MonoBehaviour
     public float smoothTime = 0.25f; //tiempo de smooth
     public Transform objetivo; // el objeto que seguira la camara
     private Vector3 velocidad = Vector3.zero; // velocidad de la camara
-    controlador controlador = null;
+    
     private void Update()
     {
         if (objetivo != null)
