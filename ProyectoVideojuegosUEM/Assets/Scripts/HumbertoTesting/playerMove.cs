@@ -1,4 +1,5 @@
 
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -11,6 +12,14 @@ public class playerMove : MonoBehaviour
     public float jumpForce; // fuerza de salto
     public float sprintSpeed = 5f; //velocidad de spritn
 
+    [Header("Dash Settings")]
+    [SerializeField] private float dashinTime;
+    [SerializeField] private float dashForce;
+    [SerializeField] private float timeCanDash;
+    bool dashing;
+    bool canDash;
+
+
     [Header("Settings")]
     public float coyoteTime = 0.2f; // Tiempo de gracia para saltar después de caer
     private float coyoteTimeCounter; // Contador para coyote time
@@ -22,13 +31,18 @@ public class playerMove : MonoBehaviour
     bool running = true ; // chequea si esta corriendo
     bool jumping; // chequea si esta saltando
     Animator animator; // Controlador de animacion
+    float direction;
+
     // Start is called before the first frame update
     void Start()
     {
         // chequeo de componentes
         animator = GetComponent<Animator>();
         rb= GetComponent<Rigidbody>();
-        
+
+        // controles del movimiento
+        float direction = Input.GetAxis("Horizontal");
+
     }
 
 
@@ -43,14 +57,11 @@ public class playerMove : MonoBehaviour
 
     private void Move()
     {
-        // controles del movimiento
-        float inputMovimiento = Input.GetAxis("Horizontal");
-
         //aplicar el control
         Vector3 velocidadActual = rb.velocity;
 
         // Aplicar contol al rigidbody
-        rb.velocity = new Vector3(inputMovimiento * speed, velocidadActual.y, velocidadActual.z);
+        rb.velocity = new Vector3(direction * speed, velocidadActual.y, velocidadActual.z);
     }
     public void jump()
     {
@@ -88,6 +99,10 @@ public class playerMove : MonoBehaviour
         
 
     }
+    public void dash()
+    {
+
+    }
 
     public void sprint()
     {
@@ -108,6 +123,16 @@ public class playerMove : MonoBehaviour
         }
     }
 
+    private IEnumerable Dash()
+    {
+        dashing = true;
+        canDash = false;
+        rb.velocity = new Vector3(direction * dashForce, 0f);
+        yield return new WaitForSeconds(dashinTime);
+        dashing = false;
+        yield return new WaitForSeconds(timeCanDash);
+        canDash = true;
+    }
 
     public void OnDrawGizmos()
     {
