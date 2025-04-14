@@ -10,8 +10,14 @@ public class PlayerMove : MonoBehaviour
     public float jumpForce; // fuerza de salto
     public float sprintSpeed = 5f; //velocidad de spritn
 
+    [Header("Vida")]
+    public int vidaMax= 3;
+    public int vidaMin;
+
+
     [Header("Settings")]
     public float coyoteTime = 0.2f; // Tiempo de gracia para saltar después de caer
+    public Transform posicion;
     private float coyoteTimeCounter; // Contador para coyote time
     public bool enSuelo; // indica si el jugador esta en el suelo
     public float longitudrayCast = 1f; // medida del largo de la linea que detecta el suelo
@@ -32,6 +38,7 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         dash = GetComponent<Dash>();
+        posicion = GetComponent<Transform>();
 
         // controles del movimiento
         direction = Input.GetAxis("Horizontal");
@@ -46,6 +53,8 @@ public class PlayerMove : MonoBehaviour
         Move();
         sprint();
         ataque();
+        dead();
+
         if (!dash.Dashing)
         {
             jump();
@@ -110,6 +119,21 @@ public class PlayerMove : MonoBehaviour
         
     }
 
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("colisiono");
+            damage();
+        }
+    }
+
+    public void damage()
+    {
+        vidaMin -= 1;
+    }
+
     public void sprint()
     {
         // controlador de correr
@@ -128,7 +152,13 @@ public class PlayerMove : MonoBehaviour
             speed = sprintSpeed;
         }
     }
-
+    public void dead()
+    {
+        if (vidaMin<= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     public void OnDrawGizmos()
     {
