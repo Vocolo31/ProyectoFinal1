@@ -221,7 +221,10 @@ MonoBehaviour:
   speed: 3
   jumpForce: 5
   sprintSpeed: 5
+  vidaMax: 3
+  vidaMin: 0
   coyoteTime: 0.2
+  posicion: {fileID: 0}
   enSuelo: 0
   longitudrayCast: 1.2
   capaSuelo:
@@ -289,7 +292,7 @@ Transform:
   m_GameObject: {fileID: 690473608}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.16, y: -2.87, z: 0}
+  m_LocalPosition: {x: -4.16, y: -3.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
