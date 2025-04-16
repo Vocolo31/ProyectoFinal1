@@ -12,7 +12,7 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Vida")]
     public int vidaMax= 3;
-    public int vidaMin;
+    public int vidaMin = 3;
 
 
     [Header("Settings")]
@@ -20,7 +20,7 @@ public class PlayerMove : MonoBehaviour
     public Transform posicion;
     private float coyoteTimeCounter; // Contador para coyote time
     public bool enSuelo; // indica si el jugador esta en el suelo
-    public float longitudrayCast = 1f; // medida del largo de la linea que detecta el suelo
+    public float longitudrayCast = 2f; // medida del largo de la linea que detecta el suelo
     public LayerMask capaSuelo; // filtro que identifica si es suelo o no
     public bool hit; // registra si el rayCast colisiona
     bool dobelJump = false; // doble salto
@@ -51,7 +51,6 @@ public class PlayerMove : MonoBehaviour
     {
         //llamado
         Move();
-        sprint();
         ataque();
         dead();
 
