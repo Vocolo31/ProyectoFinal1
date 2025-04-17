@@ -17,7 +17,7 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Settings")]
     public float coyoteTime = 0.2f; // Tiempo de gracia para saltar después de caer
-    public Transform posicion;
+    public Transform position;
     private float coyoteTimeCounter; // Contador para coyote time
     public bool enSuelo; // indica si el jugador esta en el suelo
     public float longitudrayCast = 2f; // medida del largo de la linea que detecta el suelo
@@ -38,7 +38,7 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         dash = GetComponent<Dash>();
-        posicion = GetComponent<Transform>();
+        position = GetComponent<Transform>();
 
         // controles del movimiento
         direction = Input.GetAxis("Horizontal");
@@ -61,13 +61,22 @@ public class PlayerMove : MonoBehaviour
     }
     private void Move()
     {
-        direction = Input.GetAxis("Horizontal");
+        direction = Input.GetAxisRaw("Horizontal");
 
         //aplicar el control
         Vector2 velocidadActual = rb.velocity;
 
         // Aplicar contol al rigidbody
-        rb.velocity = new Vector2(direction * speed, velocidadActual.y);
+        Vector2 input = new Vector2(direction, velocidadActual.y);
+
+        if (input.magnitude > 0)
+        {
+            rb.velocity = input * speed;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
     public void jump()
     {

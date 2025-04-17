@@ -11,6 +11,7 @@ public class TopDownMovement : MonoBehaviour
     float directionX;
     float directionY;
     public float speed;
+    public Vector2 position;
 
     public void Start()
     {
