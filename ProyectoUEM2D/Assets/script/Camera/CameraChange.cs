@@ -7,14 +7,14 @@ public class CameraChange : MonoBehaviour
     public GameObject TopDownCamera;
     public GameObject LateralCamera;
     public PlayerMove lateralPlayer;
+    public ChangeBehaviour ChangeBehaviour;
     public TopDownMovement TopPlayer;
-    public Box boxScript;
     public Vector3 lateralPlayerPosition;
     public Vector3 TopPlayerPosition;
-    bool activateTop;
+    public bool activateTop;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && boxScript.canChange)
+        if (Input.GetKeyDown(KeyCode.J) && ChangeBehaviour.canChange || Input.GetKeyDown(KeyCode.J) && ChangeBehaviour.enabled.Equals(false))
         {
             Detection();
 

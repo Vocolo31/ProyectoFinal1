@@ -2,18 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Box : MonoBehaviour
+public class ChangeBehaviour : MonoBehaviour
 {
-    public BoxCollider2D trigger;
-    public bool canChange = true;
-    void Start()
-    {
-        trigger = GetComponent<BoxCollider2D>();
-    }
 
+    public bool canChange = true;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerTop"))
+        if (collision.gameObject.CompareTag("Box"))
         {
             canChange = false;
         }
@@ -21,7 +16,7 @@ public class Box : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerTop"))
+        if (collision.gameObject.CompareTag("Box"))
         {
             canChange = true;
         }

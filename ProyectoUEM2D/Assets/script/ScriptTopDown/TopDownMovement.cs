@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class TopDownMovement : MonoBehaviour
 {
@@ -12,9 +13,11 @@ public class TopDownMovement : MonoBehaviour
     float directionY;
     public float speed;
     public Vector2 position;
-
+    ChangeBehaviour changeBehaviour;
+    public CameraChange cameraChange;
     public void Start()
     {
+        changeBehaviour = GetComponent<ChangeBehaviour>();
         transform = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         animatorTop = GetComponent<Animator>();
@@ -23,6 +26,7 @@ public class TopDownMovement : MonoBehaviour
     public void Update()
     {
         Walking();
+        deactivatingTrigger();
     }
 
     public void Walking()
@@ -48,5 +52,10 @@ public class TopDownMovement : MonoBehaviour
         {
             animatorTop.SetTrigger("AttackTop");
         }
+    }
+
+    public void deactivatingTrigger()
+    {
+        changeBehaviour.enabled = cameraChange.activateTop;
     }
 }
