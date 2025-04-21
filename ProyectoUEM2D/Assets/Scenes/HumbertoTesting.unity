@@ -222,9 +222,8 @@ MonoBehaviour:
   jumpForce: 5
   sprintSpeed: 5
   vidaMax: 3
-  vidaMin: 0
+  vidaActual: 3
   coyoteTime: 0.2
-  position: {fileID: 0}
   enSuelo: 0
   longitudrayCast: 1.2
   capaSuelo:

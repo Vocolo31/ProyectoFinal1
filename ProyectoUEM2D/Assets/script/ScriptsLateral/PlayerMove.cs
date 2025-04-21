@@ -28,6 +28,8 @@ public class PlayerMove : MonoBehaviour
     Animator animator; // controlador de animación
     float direction;
     private Dash dash;
+
+    public bool moveControlerL = true;
     public float Directtion => direction;
 
     void Start()
@@ -53,9 +55,18 @@ public class PlayerMove : MonoBehaviour
 
     private void Move()
     {
-        // inputs de direccion
-        direction = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(direction * speed, rb.velocity.y);
+        // controlador de movimeinto. asegura que el personaje se quede quito cuando la camara cambia a top down
+        if (Input.GetKey(KeyCode.J))
+        {
+            moveControlerL = !moveControlerL;
+        }
+        if (!moveControlerL)
+        {
+            // inputs de direccion
+            direction = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(direction * speed, rb.velocity.y);
+        }
+        
     }
 
     public void jump()
