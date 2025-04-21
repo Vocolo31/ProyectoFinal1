@@ -1,56 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
     [Header("Controlador del player")]
-    private Rigidbody2D rb; // fisicas del personaje
-    public float speed = 3f; //velocidad del personaje
+    private Rigidbody2D rb; // físicas del personaje
+    public float speed = 3f; // velocidad del personaje
     public float jumpForce; // fuerza de salto
-    public float sprintSpeed = 5f; //velocidad de spritn
+    public float sprintSpeed = 5f; // velocidad de sprint
 
     [Header("Vida")]
-    public int vidaMax= 3;
-    public int vidaMin = 3;
-
+    public int vidaMax = 3;
+    public int vidaActual = 3;
 
     [Header("Settings")]
     public float coyoteTime = 0.2f; // Tiempo de gracia para saltar después de caer
-    public Transform position;
     private float coyoteTimeCounter; // Contador para coyote time
-    public bool enSuelo; // indica si el jugador esta en el suelo
-    public float longitudrayCast = 2f; // medida del largo de la linea que detecta el suelo
-    public LayerMask capaSuelo; // filtro que identifica si es suelo o no
-    public bool hit; // registra si el rayCast colisiona
+    public bool enSuelo; // indica si el jugador está en el suelo
+    public float longitudrayCast = 2f; // largo del raycast para el suelo
+    public LayerMask capaSuelo; // filtro que identifica el suelo
+    public bool hit; // raycast colisiona o no
     bool dobelJump = false; // doble salto
-    bool running = true; // chequea si esta corriendo
-    bool jumping; // chequea si esta saltando
-    Animator animator; // Controlador de animacion
+    bool running = true; // verifica si está corriendo
+    bool jumping; // verifica si está saltando
+    Animator animator; // controlador de animación
     float direction;
     private Dash dash;
     public float Directtion => direction;
 
-    // Start is called before the first frame update
     void Start()
     {
-        // chequeo de componentes
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         dash = GetComponent<Dash>();
-        position = GetComponent<Transform>();
-
-        // controles del movimiento
-        direction = Input.GetAxis("Horizontal");
-
     }
 
-
-    // Update is called once per frame
     void Update()
     {
-        //llamado
+        // llamados
         Move();
+        sprint();
         ataque();
         dead();
 
@@ -59,31 +50,22 @@ public class PlayerMove : MonoBehaviour
             jump();
         }
     }
+
     private void Move()
     {
+        // inputs de direccion
         direction = Input.GetAxisRaw("Horizontal");
-
-        //aplicar el control
-        Vector2 velocidadActual = rb.velocity;
-
-        // Aplicar contol al rigidbody
-        Vector2 input = new Vector2(direction, velocidadActual.y);
-
-        if (input.magnitude > 0)
-        {
-            rb.velocity = input * speed;
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-        }
+        rb.velocity = new Vector2(direction * speed, rb.velocity.y);
     }
+
     public void jump()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longitudrayCast, capaSuelo);
-        enSuelo = hit.collider != null; // si hay colisión, está en el suelo
+        // Ray cast, se encarga de verificar que el objeto se encunetre en colision con el suelo
+        RaycastHit2D raycastInfo = Physics2D.Raycast(transform.position, Vector2.down, longitudrayCast, capaSuelo);
+        hit = raycastInfo.collider != null;
+        enSuelo = hit;
 
-        // Si está en el suelo, resetear el contador de Coyote Time
+        // coyotetime
         if (hit)
         {
             coyoteTimeCounter = coyoteTime;
@@ -93,43 +75,53 @@ public class PlayerMove : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
 
-        // Si presiona "SPACE" y el Coyote Time aún no se ha agotado, puede saltar
         if (coyoteTimeCounter > 0 && Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce); // para mayor control se usa velocity en vez de AddForce
-            coyoteTimeCounter = 0; // Se gasta el Coyote Time al saltar
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            coyoteTimeCounter = 0;
             dobelJump = true;
             jumping = true;
-
         }
 
-
-
         // Doble salto
-        if (!hit && dobelJump == true && Input.GetKeyDown(KeyCode.Space))
+        if (!hit && dobelJump && Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("funciona");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             dobelJump = false;
             jumping = false;
         }
-
-
-
     }
+
     public void ataque()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             animator.SetTrigger("Ataque");
-            
         }
-        
+    }
+
+    public void sprint()
+    {
+        // correr
+        if (hit && Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = sprintSpeed;
+        }
+        else
+        {
+            running = false;
+            speed = 3f;
+        }
+        // limitador de salto y spring. hace que solo se pueda correr en el primer salto, en cambio en el segundo pierde impulso y vuelve a su velocidad 
+        if (!hit && jumping && dobelJump && !running)
+        {
+            speed = sprintSpeed;
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("colisiono");
@@ -139,42 +131,25 @@ public class PlayerMove : MonoBehaviour
 
     public void damage()
     {
-        vidaMin -= 1;
+        vidaActual -= 1;
+
+        // llamado a la animacion de daño
+        animator.SetTrigger("Damage"); 
     }
 
-    public void sprint()
-    {
-        // controlador de correr
-        if (hit == true && Input.GetKey(KeyCode.LeftShift))
-        {
-            speed = sprintSpeed;
-
-        }
-        else
-        {
-            running = false;
-            speed = 3f;
-        }
-        if (!hit && jumping == true && dobelJump == true && !running)
-        {
-            speed = sprintSpeed;
-        }
-    }
     public void dead()
     {
-        if (vidaMin<= 0)
+        if (vidaActual <= 0)
         {
-            Destroy(this.gameObject);
+            
+            // Reinicia nivel
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
         }
     }
 
     public void OnDrawGizmos()
     {
-        //color del raycast
         Gizmos.color = Color.red;
-
-        // posicion del raycast y direccion del mismo
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * longitudrayCast);
     }
-
 }
