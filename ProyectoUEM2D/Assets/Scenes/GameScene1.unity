@@ -1509,8 +1509,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0029073954, y: -0.08140761}
-  m_Size: {x: 0.72292113, y: 1.8371848}
+  m_Offset: {x: -0.0029073954, y: -0.077905595}
+  m_Size: {x: 0.72292113, y: 1.8301808}
   m_Direction: 0
 --- !u!114 &940882177
 MonoBehaviour:
@@ -2423,7 +2423,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7054665, y: 5.838644}
+  m_Size: {x: 2.1242533, y: 5.838644}
   m_EdgeRadius: 0
 --- !u!1 &1641957021
 GameObject:
@@ -2650,6 +2650,8 @@ MonoBehaviour:
   lateralPlayerPosition: {x: 0, y: 0, z: 0}
   TopPlayerPosition: {x: 0, y: 0, z: 0}
   activateTop: 0
+  onTime: 1
+  coolDownTime: 1
 --- !u!4 &1790874546
 Transform:
   m_ObjectHideFlags: 0
