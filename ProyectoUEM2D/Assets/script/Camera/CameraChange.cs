@@ -6,6 +6,8 @@ public class CameraChange : MonoBehaviour
 {
     public GameObject TopDownCamera;
     public GameObject LateralCamera;
+    public GameObject LateralChar;
+    public GameObject TopChar;
     public PlayerMove lateralPlayer;
     public ChangeBehaviour ChangeBehaviour;
     public TopDownMovement TopPlayer;
@@ -14,6 +16,9 @@ public class CameraChange : MonoBehaviour
     public bool activateTop;
     void Update()
     {
+        PlayerMove playerMove = LateralChar.GetComponent<PlayerMove>();
+        TopDownMovement topDownMovement = TopChar.GetComponent<TopDownMovement>();
+
         if (Input.GetKeyDown(KeyCode.J) && ChangeBehaviour.canChange || Input.GetKeyDown(KeyCode.J) && ChangeBehaviour.enabled.Equals(false))
         {
             Detection();
@@ -22,14 +27,20 @@ public class CameraChange : MonoBehaviour
             {
                 lateralPlayerPosition = lateralPlayer.transform.position;
                 TopPlayer.transform.position = new Vector3(lateralPlayerPosition.x, 25f, -0.5f);
+
+                playerMove.enabled = false;
+                topDownMovement.enabled = true;
             }
 
             else if (!activateTop)
             {
                 TopPlayerPosition = TopPlayer.transform.position;
                 lateralPlayer.transform.position = new Vector3(TopPlayerPosition.x, -0.450f, -0.500f);
+
+                topDownMovement.enabled = false;
+                playerMove.enabled = true;
             }
-        }   
+        }
     }
 
     void Detection()

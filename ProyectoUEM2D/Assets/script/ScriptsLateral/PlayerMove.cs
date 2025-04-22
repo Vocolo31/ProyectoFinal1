@@ -55,20 +55,9 @@ public class PlayerMove : MonoBehaviour
 
     private void Move()
     {
-        // controlador de movimeinto. asegura que el personaje se quede quito cuando la camara cambia a top down
-        if (Input.GetKey(KeyCode.J))
-        {
-            moveControlerL = !moveControlerL;
-        }
-        if (!moveControlerL)
-        {
-            // inputs de direccion
-            direction = Input.GetAxisRaw("Horizontal");
-            rb.velocity = new Vector2(direction * speed, rb.velocity.y);
-        }
-        
+        direction = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(direction * speed, rb.velocity.y);
     }
-
     public void jump()
     {
         // Ray cast, se encarga de verificar que el objeto se encunetre en colision con el suelo
@@ -136,17 +125,17 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("colisiono");
-            damage();
+            //damage();
         }
     }
 
-    public void damage()
+   /* public void damage()
     {
         vidaActual -= 1;
 
         // llamado a la animacion de daño
         animator.SetTrigger("Damage"); 
-    }
+    }*/
 
     public void dead()
     {
