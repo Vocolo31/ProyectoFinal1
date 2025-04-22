@@ -1438,7 +1438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  jumpForce: 0
+  jumpForce: 5
   sprintSpeed: 5
   vidaMax: 3
   vidaActual: 3
