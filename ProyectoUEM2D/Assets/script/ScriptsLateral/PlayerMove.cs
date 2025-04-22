@@ -56,17 +56,7 @@ public class PlayerMove : MonoBehaviour
     private void Move()
     {
         direction = Input.GetAxisRaw("Horizontal");
-        Vector2 input = new Vector2(direction, rb.velocity.y);
-
-        if (input.magnitude > 0)
-        {
-            rb.velocity = input * speed;
-        }
-
-        else
-        {
-            rb.velocity = Vector2.zero;
-        }
+        rb.velocity = new Vector2(direction * speed, rb.velocity.y);
     }
     public void jump()
     {
