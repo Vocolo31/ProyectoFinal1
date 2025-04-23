@@ -78,6 +78,7 @@ public class PlayerMove : MonoBehaviour
         {
             transform.localScale = new Vector2(1, 1);
         }
+        animator.SetFloat("Blend", Mathf.Abs(direccion));
     }
 
     public void jump()

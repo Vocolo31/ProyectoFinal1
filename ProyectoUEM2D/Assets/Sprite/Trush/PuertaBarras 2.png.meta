@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 311a86996b81abe4b93b61699b9c6e20
+guid: c93a57551dfa7ad4c9a85d4cb3b0c7e0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -46,10 +46,10 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5351412, y: 0.52635604}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
-  spriteBorder: {x: 211, y: 416, z: 142, w: 45}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -113,10 +113,10 @@ TextureImporter:
       name: PuertaBarras 1_0
       rect:
         serializedVersion: 2
-        x: 211
-        y: 416
-        width: 31
-        height: 51
+        x: 210
+        y: 448
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,11 +130,32 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PuertaBarras 1_1
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 960c11b53e6daf141abd74f22b428989
+      internalID: 1783482529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -142,6 +163,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       PuertaBarras 1_0: 670428887
+      PuertaBarras 1_1: 1783482529
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
