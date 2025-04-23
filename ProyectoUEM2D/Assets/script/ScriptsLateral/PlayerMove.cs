@@ -53,21 +53,33 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void Move() //Movement script for the character
+    private void Move()
     {
-        direction = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(direction * speed, rb.velocity.y);
-            direction = Input.GetAxisRaw("Horizontal");
-            Vector2 input = new Vector2(direction, rb.velocity.y);
-        if (input.magnitude > 0)
+        float direccion = Input.GetAxisRaw("Horizontal");
+
+        // limita el movimiento del personaje
+        if (Mathf.Abs(direccion) > 0.01f)
         {
-            rb.velocity = input * speed;
+            rb.velocity = new Vector2(direccion * speed, rb.velocity.y);
         }
-        else //The character stops completely when not pressing the keys
+        else
         {
-            rb.velocity = Vector2.zero;
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        // guarda la direccion del personaje
+        direction = direccion;
+
+        // Voltear personaje según la dirección
+        if (direccion < 0)
+        {
+            transform.localScale = new Vector2(-1, 1);
+        }
+        else if (direccion > 0)
+        {
+            transform.localScale = new Vector2(1, 1);
         }
     }
+
     public void jump()
     {
         // Ray cast, se encarga de verificar que el objeto se encunetre en colision con el suelo
