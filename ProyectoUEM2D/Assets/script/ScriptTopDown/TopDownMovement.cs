@@ -34,25 +34,9 @@ public class TopDownMovement : MonoBehaviour
     public void Walking()
     {
         // contolr de movimiento. asegura que el personaje quede quieto cuando la camara pasa a lateral
-        if (Input.GetKey(KeyCode.J))
-        {
-            Debug.Log("Tienes la j activa");
-            moveControl = !moveControl;
-
-        }
-
-        if (moveControl)
-        {
-            Debug.Log("puedes moverte de forma vertical");
-            directionY = Input.GetAxisRaw("Vertical");
-            directionX = Input.GetAxisRaw("Horizontal");
-           
-   
-
-        }
         
-       
-        
+        directionY = Input.GetAxisRaw("Vertical");
+        directionX = Input.GetAxisRaw("Horizontal");
 
         Vector2 input = new Vector2 (directionX, directionY).normalized;
 

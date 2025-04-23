@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMove : MonoBehaviour
 {
     [Header("Controlador del player")]
-    private Rigidbody2D rb; // físicas del personaje
+    private Rigidbody2D rb; // fï¿½sicas del personaje
     public float speed = 3f; // velocidad del personaje
     public float jumpForce; // fuerza de salto
     public float sprintSpeed = 5f; // velocidad de sprint
@@ -16,16 +16,16 @@ public class PlayerMove : MonoBehaviour
     public int vidaActual = 3;
 
     [Header("Settings")]
-    public float coyoteTime = 0.2f; // Tiempo de gracia para saltar después de caer
+    public float coyoteTime = 0.2f; // Tiempo de gracia para saltar despuï¿½s de caer
     private float coyoteTimeCounter; // Contador para coyote time
-    public bool enSuelo; // indica si el jugador está en el suelo
+    public bool enSuelo; // indica si el jugador estï¿½ en el suelo
     public float longitudrayCast = 2f; // largo del raycast para el suelo
     public LayerMask capaSuelo; // filtro que identifica el suelo
     public bool hit; // raycast colisiona o no
     bool dobelJump = false; // doble salto
-    bool running = true; // verifica si está corriendo
-    bool jumping; // verifica si está saltando
-    Animator animator; // controlador de animación
+    bool running = true; // verifica si estï¿½ corriendo
+    bool jumping; // verifica si estï¿½ saltando
+    Animator animator; // controlador de animaciï¿½n
     float direction;
     private Dash dash;
 
@@ -55,6 +55,8 @@ public class PlayerMove : MonoBehaviour
 
     private void Move() //Movement script for the character
     {
+        direction = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(direction * speed, rb.velocity.y);
             direction = Input.GetAxisRaw("Horizontal");
             Vector2 input = new Vector2(direction, rb.velocity.y);
         if (input.magnitude > 0)
@@ -66,7 +68,6 @@ public class PlayerMove : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
     }
-
     public void jump()
     {
         // Ray cast, se encarga de verificar que el objeto se encunetre en colision con el suelo
@@ -134,17 +135,17 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("colisiono");
-            damage();
+            //damage();
         }
     }
 
-    public void damage()
+   /* public void damage()
     {
         vidaActual -= 1;
 
-        // llamado a la animacion de daño
+        // llamado a la animacion de daï¿½o
         animator.SetTrigger("Damage"); 
-    }
+    }*/
 
     public void dead()
     {
