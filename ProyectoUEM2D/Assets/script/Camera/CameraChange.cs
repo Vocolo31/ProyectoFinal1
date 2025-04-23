@@ -14,14 +14,17 @@ public class CameraChange : MonoBehaviour
     public Vector3 lateralPlayerPosition;
     public Vector3 TopPlayerPosition;
     public bool activateTop;
+    bool onTime = true;
+    public float cooldownTime;
     void Update()
     {
         PlayerMove playerMove = LateralChar.GetComponent<PlayerMove>();
         TopDownMovement topDownMovement = TopChar.GetComponent<TopDownMovement>();
 
-        if (Input.GetKeyDown(KeyCode.J) && ChangeBehaviour.canChange || Input.GetKeyDown(KeyCode.J) && ChangeBehaviour.enabled.Equals(false))
+        if ((Input.GetKeyDown(KeyCode.J) && onTime) && (ChangeBehaviour.enabled.Equals(false) || ChangeBehaviour.canChange))
         {
             Detection();
+            StartCoroutine(changeTime(cooldownTime));
 
             if (activateTop)
             {
@@ -49,5 +52,12 @@ public class CameraChange : MonoBehaviour
 
             TopDownCamera.SetActive(activateTop);
             LateralCamera.SetActive(!activateTop);
+    }
+
+    IEnumerator changeTime(float time)
+    {
+        onTime = false;
+        yield return new WaitForSeconds(time);
+        onTime = true;
     }
 }
