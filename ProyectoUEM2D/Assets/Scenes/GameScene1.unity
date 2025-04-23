@@ -1444,15 +1444,15 @@ MonoBehaviour:
   jumpForce: 0
   sprintSpeed: 5
   vidaMax: 3
-  vidaMin: 3
+  vidaActual: 3
   coyoteTime: 0.2
-  position: {fileID: 0}
   enSuelo: 0
   longitudrayCast: 1.05
   capaSuelo:
     serializedVersion: 2
     m_Bits: 8
   hit: 0
+  moveControlerL: 1
 --- !u!50 &940882175
 Rigidbody2D:
   serializedVersion: 4
@@ -1512,8 +1512,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0029073954, y: -0.08140761}
-  m_Size: {x: 0.72292113, y: 1.8371848}
+  m_Offset: {x: -0.0029073954, y: -0.07084024}
+  m_Size: {x: 0.72292113, y: 1.81605}
   m_Direction: 0
 --- !u!114 &940882177
 MonoBehaviour:
@@ -1580,6 +1580,7 @@ MonoBehaviour:
   speed: 3
   position: {x: 0, y: 0}
   cameraChange: {fileID: 1790874545}
+  moveControl: 0
 --- !u!212 &968733713
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2779,15 +2780,15 @@ MonoBehaviour:
   jumpForce: 0.1
   sprintSpeed: 5
   vidaMax: 3
-  vidaMin: 3
+  vidaActual: 3
   coyoteTime: 0.2
-  position: {fileID: 0}
   enSuelo: 0
   longitudrayCast: 2
   capaSuelo:
     serializedVersion: 2
     m_Bits: 8
   hit: 0
+  moveControlerL: 1
 --- !u!212 &1875657522
 SpriteRenderer:
   m_ObjectHideFlags: 0

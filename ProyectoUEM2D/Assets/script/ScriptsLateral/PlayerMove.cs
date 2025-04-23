@@ -53,20 +53,18 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void Move()
+    private void Move() //Movement script for the character
     {
-        // controlador de movimeinto. asegura que el personaje se quede quito cuando la camara cambia a top down
-        if (Input.GetKey(KeyCode.J))
-        {
-            moveControlerL = !moveControlerL;
-        }
-        if (!moveControlerL)
-        {
-            // inputs de direccion
             direction = Input.GetAxisRaw("Horizontal");
-            rb.velocity = new Vector2(direction * speed, rb.velocity.y);
+            Vector2 input = new Vector2(direction, rb.velocity.y);
+        if (input.magnitude > 0)
+        {
+            rb.velocity = input * speed;
         }
-        
+        else //The character stops completely when not pressing the keys
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     public void jump()
