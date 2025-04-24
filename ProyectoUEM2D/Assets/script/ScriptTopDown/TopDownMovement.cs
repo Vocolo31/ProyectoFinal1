@@ -37,6 +37,7 @@ public class TopDownMovement : MonoBehaviour
         
         directionY = Input.GetAxisRaw("Vertical");
         directionX = Input.GetAxisRaw("Horizontal");
+        float directionYX = directionY + directionX;
 
         Vector2 input = new Vector2 (directionX, directionY).normalized;
 
@@ -47,6 +48,16 @@ public class TopDownMovement : MonoBehaviour
         else
         {
             rb.velocity = Vector2.zero;
+        }
+        animatorTop.SetFloat("Blend", Mathf.Abs(directionYX));
+        // Voltear personaje según la dirección
+        if (directionYX < 0)
+        {
+            transform.localScale = new Vector2(-1, 1);
+        }
+        else if (directionYX > 0)
+        {
+            transform.localScale = new Vector2(1, 1);
         }
     }
 
