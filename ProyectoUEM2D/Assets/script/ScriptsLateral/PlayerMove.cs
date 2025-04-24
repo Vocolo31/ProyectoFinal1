@@ -92,6 +92,7 @@ public class PlayerMove : MonoBehaviour
         if (hit)
         {
             coyoteTimeCounter = coyoteTime;
+            animator.SetBool("Jump",false);
         }
         else
         {
@@ -104,6 +105,15 @@ public class PlayerMove : MonoBehaviour
             coyoteTimeCounter = 0;
             dobelJump = true;
             jumping = true;
+            
+        }
+        if (!hit)
+        {
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            animator.SetBool("Jump",false);
         }
 
         // Doble salto
