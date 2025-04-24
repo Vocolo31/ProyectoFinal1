@@ -28,8 +28,8 @@ public class CameraChange : MonoBehaviour
 
             if (activateTop)
             {
-               /* lateralPlayerPosition = lateralPlayer.transform.position;
-                TopPlayer.transform.position = new Vector3(lateralPlayerPosition.x, 25f, -0.5f);*/
+               /*lateralPlayerPosition = lateralPlayer.transform.position;
+               TopPlayer.transform.position = new Vector3(lateralPlayerPosition.x, 25f, -0.5f);*/
 
                 playerMove.enabled = false;
                 topDownMovement.enabled = true;
@@ -38,7 +38,7 @@ public class CameraChange : MonoBehaviour
             else if (!activateTop)
             {
                /*TopPlayerPosition = TopPlayer.transform.position;
-                lateralPlayer.transform.position = new Vector3(TopPlayerPosition.x, -0.450f, -0.500f);*/
+               lateralPlayer.transform.position = new Vector3(TopPlayerPosition.x, -0.450f, -0.500f);*/
 
                 topDownMovement.enabled = false;
                 playerMove.enabled = true;
