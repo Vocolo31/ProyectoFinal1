@@ -49,7 +49,7 @@ public class TopDownMovement : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
-        animatorTop.SetFloat("Blend", Mathf.Abs(directionYX));
+        //animatorTop.SetFloat("Blend", Mathf.Abs(directionYX));
         // Voltear personaje según la dirección
         if (directionYX < 0)
         {
