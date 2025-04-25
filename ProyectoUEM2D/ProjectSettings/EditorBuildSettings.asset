@@ -6,6 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: b90c5e1541223714688f10e942fb1452
+  - enabled: 1
+    path: Assets/Scenes/GameScene1.unity
+    guid: dfb008a2b3e585649af4bae3e00fdcfe
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/DuplicadoAntiNegros.unity
+    guid: 1dbdcc9e48a26a1448826d02acd7c2af
+  - enabled: 1
+    path: Assets/Scenes/HumbertoTesting.unity
+    guid: 0600b847103fb0440ba5e410e56c43d0
+  - enabled: 1
+    path: Assets/Scenes/NewSampleScene.unity
+    guid: 7383e24f79572a84c8b3800a0d81e57a
+  - enabled: 1
+    path: Assets/Scenes/VocoloTesting.unity
+    guid: d86c04394b69044429340fe8acaf815d
   m_configObjects: {}
