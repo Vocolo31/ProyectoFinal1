@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Door
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: -1108214669, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: -2025498214, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: 2043703101, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: 37096288, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: 1504825797, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: 2080383328, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: -388339337, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: -1593680371, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: 1833401795, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: -2034147805, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: -18932087, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: 1484911006, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: 1487429318, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: 1598504597, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  - {fileID: 1830420675, guid: b0fd57556f9006b4db092ef8875400ba, type: 3}
+  m_MinSpeed: 1
+  m_MaxSpeed: 1
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
+  m_TileAnimationFlags: 0
