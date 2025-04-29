@@ -46,11 +46,7 @@ public class PlayerMove : MonoBehaviour
         sprint();
         ataque();
         dead();
-
-        if (!dash.Dashing)
-        {
-            jump();
-        }
+        jump();
     }
 
     private void Move()

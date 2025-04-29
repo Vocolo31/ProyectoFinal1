@@ -15,25 +15,42 @@ public class TopDownMovement : MonoBehaviour
     public Vector2 position;
     ChangeBehaviour changeBehaviour;
     public CameraChange cameraChange;
-
     public bool moveControl = false;
+
+    [Header("Dash Settings")]
+    [SerializeField] private float dashinTime = 0.2f;
+    [SerializeField] private float dashForce = 10f;
+    [SerializeField] private float timeCanDash = 1f;
+    [SerializeField] private TrailRenderer tr;
+
+    private bool dashing;
+    private bool canDash = true;
+
+  
     public void Start()
     {
         changeBehaviour = GetComponent<ChangeBehaviour>();
         transform = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         animatorTop = GetComponent<Animator>();
+
+        if (tr == null)
+            tr = GetComponent<TrailRenderer>();
     }
 
     public void Update()
     {
         Walking();
         deactivatingTrigger();
+        if (Input.GetKeyDown(KeyCode.C) && canDash)
+        {
+            StartCoroutine(DashCoroutine());
+        }
     }
 
     public void Walking()
     {
-        // contolr de movimiento. asegura que el personaje quede quieto cuando la camara pasa a lateral
+        // Contolr de movimiento. asegura que el personaje quede quieto cuando la camara pasa a lateral
         
         directionY = Input.GetAxisRaw("Vertical");
         directionX = Input.GetAxisRaw("Horizontal");
@@ -63,7 +80,7 @@ public class TopDownMovement : MonoBehaviour
 
     public void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.E))
         {
             animatorTop.SetTrigger("AttackTop");
         }
@@ -72,5 +89,46 @@ public class TopDownMovement : MonoBehaviour
     public void deactivatingTrigger()
     {
         changeBehaviour.enabled = cameraChange.activateTop;
+    }
+    private IEnumerator DashCoroutine()
+    {
+        dashing = true;
+        canDash = false;
+
+        // Obtener la dirección del input
+        Vector2 directionYX = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+        // Si el jugador no está tocando ninguna dirección
+        if (directionYX == Vector2.zero)
+        {
+            directionYX = Vector2.right;
+        }
+
+        // Activar estela 
+        if (tr != null)
+        {
+            tr.emitting = true;
+        }
+            
+        // Aplicar la fuerza del dash
+        rb.velocity = directionYX * dashForce;
+
+        yield return new WaitForSeconds(dashinTime);
+        
+        rb.velocity = Vector2.zero;
+
+        if (dashing && !canDash)
+        {
+            if (tr != null)
+            {
+                tr.emitting = false;
+            }
+                
+        }
+
+        dashing = false;
+        yield return new WaitForSeconds(timeCanDash);
+
+        canDash = true;
     }
 }
