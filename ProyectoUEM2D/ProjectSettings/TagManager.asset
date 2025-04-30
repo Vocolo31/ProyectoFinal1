@@ -59,6 +59,9 @@ TagManager:
   - name: Forergound
     uniqueID: 377762865
     locked: 0
+  - name: Roof
+    uniqueID: 291358471
+    locked: 0
   - name: UI
     uniqueID: 919605017
     locked: 0
