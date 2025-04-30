@@ -20,8 +20,8 @@ public class TopDownMovement : MonoBehaviour
     [SerializeField] private float dashinTime = 0.2f;
     [SerializeField] private float dashForce = 10f;
     [SerializeField] private float timeCanDash = 1f;
-    [SerializeField] private TrailRenderer tr;
 
+    public GameObject tr;
     private bool dashing;
     private bool canDash = true;
 
@@ -32,8 +32,6 @@ public class TopDownMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animatorTop = GetComponent<Animator>();
 
-        if (tr == null)
-            tr = GetComponent<TrailRenderer>();
     }
 
     public void Update()
@@ -104,10 +102,7 @@ public class TopDownMovement : MonoBehaviour
         }
 
         // Activar estela 
-        if (tr != null)
-        {
-            tr.emitting = true;
-        }
+        tr.SetActive(true);
             
         // Aplicar la fuerza del dash
         rb.velocity = directionYX * dashForce;
@@ -118,10 +113,7 @@ public class TopDownMovement : MonoBehaviour
 
         if (dashing && !canDash)
         {
-            if (tr != null)
-            {
-                tr.emitting = false;
-            }
+            tr.SetActive(false);
                 
         }
 
