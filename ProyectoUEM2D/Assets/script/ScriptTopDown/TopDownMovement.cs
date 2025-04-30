@@ -6,7 +6,6 @@ using UnityEngine.WSA;
 
 public class TopDownMovement : MonoBehaviour
 {
-    Transform transform;
     Rigidbody2D rb;
     Animator animatorTop;
     float directionX;
@@ -30,7 +29,6 @@ public class TopDownMovement : MonoBehaviour
     public void Start()
     {
         changeBehaviour = GetComponent<ChangeBehaviour>();
-        transform = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         animatorTop = GetComponent<Animator>();
 
@@ -57,6 +55,7 @@ public class TopDownMovement : MonoBehaviour
         float directionYX = directionY + directionX;
 
         Vector2 input = new Vector2 (directionX, directionY).normalized;
+        animatorTop.SetFloat("Blend", Mathf.Abs(directionYX));
 
         if (input.magnitude > 0)
         {
