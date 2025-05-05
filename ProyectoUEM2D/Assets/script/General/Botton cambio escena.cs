@@ -12,6 +12,7 @@ public class Bottoncambioescena : MonoBehaviour
         if (!string.IsNullOrEmpty(sceneToLoad))
         {
             SceneManager.LoadScene(sceneToLoad);
+            Time.timeScale = 1;
         }
 
         else
