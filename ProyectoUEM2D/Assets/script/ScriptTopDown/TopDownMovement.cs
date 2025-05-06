@@ -25,6 +25,11 @@ public class TopDownMovement : MonoBehaviour
     private bool dashing;
     private bool canDash = true;
 
+    [Header("Prueba Escaleras")]
+    public Transform punto1;
+    public Transform punto2;
+    bool punto1Bool;
+    bool punto2Bool;
   
     public void Start()
     {
@@ -36,6 +41,7 @@ public class TopDownMovement : MonoBehaviour
 
     public void Update()
     {
+        SubirBajar();
         Walking();
         deactivatingTrigger();
         if (Input.GetKeyDown(KeyCode.C) && canDash)
@@ -50,10 +56,10 @@ public class TopDownMovement : MonoBehaviour
         
         directionY = Input.GetAxisRaw("Vertical");
         directionX = Input.GetAxisRaw("Horizontal");
-        float directionYX = directionY + directionX;
+        
 
         Vector2 input = new Vector2 (directionX, directionY).normalized;
-        animatorTop.SetFloat("Blend", Mathf.Abs(directionYX));
+        animatorTop.SetFloat("Blend", input.magnitude);
 
         if (input.magnitude > 0)
         {
@@ -63,13 +69,13 @@ public class TopDownMovement : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
-        //animatorTop.SetFloat("Blend", Mathf.Abs(directionYX));
+        
         // Voltear personaje según la dirección
-        if (directionYX < 0)
+        if (directionX < 0)
         {
             transform.localScale = new Vector2(-1, 1);
         }
-        else if (directionYX > 0)
+        else if (directionX > 0)
         {
             transform.localScale = new Vector2(1, 1);
         }
@@ -121,5 +127,30 @@ public class TopDownMovement : MonoBehaviour
         yield return new WaitForSeconds(timeCanDash);
 
         canDash = true;
+    }
+    public void SubirBajar()
+    {
+        if (punto1Bool == true && Input.GetKeyUp(KeyCode.E))
+        {
+            transform.position = punto2.position;
+        }
+        if (punto2Bool == true && Input.GetKeyUp(KeyCode.E))
+        {
+            transform.position = punto1.position;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("EEEEEEEE");
+        if (collision.CompareTag("EscaleraA"))
+        {
+            punto1Bool = true;
+            punto2Bool = false;
+        }
+        if (collision.CompareTag("EscaleraB"))
+        {
+            punto1Bool = false;
+            punto2Bool = true;
+        }
     }
 }
