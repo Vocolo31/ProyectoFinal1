@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.WSA;
@@ -26,11 +27,10 @@ public class TopDownMovement : MonoBehaviour
     private bool canDash = true;
 
     [Header("Prueba Escaleras")]
-    public Transform punto1;
-    public Transform punto2;
-    bool punto1Bool;
-    bool punto2Bool;
-  
+    public Transform[] puntos;
+    float velocidadEscalera = 3f;
+    bool EnEscalera;
+    
     public void Start()
     {
         changeBehaviour = GetComponent<ChangeBehaviour>();
@@ -128,21 +128,30 @@ public class TopDownMovement : MonoBehaviour
 
         canDash = true;
     }
-    public void SubirBajar()
+    public IEnumerator SubirBajar()
     {
-        if (punto1Bool == true && Input.GetKeyUp(KeyCode.E))
+        EnEscalera = true;
+        foreach (Transform punto in puntos)
         {
-            transform.position = punto2.position;
+            if (EnEscalera == true && Input.GetKeyUp(KeyCode.E))
+            {
+                while (Vector3.Distance(transform.position, punto.position) > 0.1f)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, punto.position, velocidadEscalera * Time.deltaTime);
+                    yield return null;
+                }
+            }
         }
-        if (punto2Bool == true && Input.GetKeyUp(KeyCode.E))
-        {
-            transform.position = punto1.position;
-        }
+       
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("EscalerasA") && Input.GetKeyDown(KeyCode.E) && !EnEscalera)
+        {
+            StartCoroutine(SubirBajar());
+        }
         Debug.Log("EEEEEEEE");
-        if (collision.CompareTag("EscaleraA"))
+       /* if (collision.CompareTag("EscaleraA"))
         {
             punto1Bool = true;
             punto2Bool = false;
@@ -151,6 +160,6 @@ public class TopDownMovement : MonoBehaviour
         {
             punto1Bool = false;
             punto2Bool = true;
-        }
+        }*/
     }
 }
