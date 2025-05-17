@@ -25,11 +25,6 @@ public class TopDownMovement : MonoBehaviour
     public GameObject tr;
     private bool dashing;
     private bool canDash = true;
-
-    [Header("Prueba Escaleras")]
-    public Transform[] puntos;
-    float velocidadEscalera = 3f;
-    bool EnEscalera;
     
     public void Start()
     {
@@ -41,7 +36,6 @@ public class TopDownMovement : MonoBehaviour
 
     public void Update()
     {
-        SubirBajar();
         Walking();
         deactivatingTrigger();
         if (Input.GetKeyDown(KeyCode.C) && canDash)
@@ -128,38 +122,5 @@ public class TopDownMovement : MonoBehaviour
 
         canDash = true;
     }
-    public IEnumerator SubirBajar()
-    {
-        EnEscalera = true;
-        foreach (Transform punto in puntos)
-        {
-            if (EnEscalera == true && Input.GetKeyUp(KeyCode.E))
-            {
-                while (Vector3.Distance(transform.position, punto.position) > 0.1f)
-                {
-                    transform.position = Vector3.MoveTowards(transform.position, punto.position, velocidadEscalera * Time.deltaTime);
-                    yield return null;
-                }
-            }
-        }
-       
-    }
-    private void OnCollisionEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("EscalerasA") && Input.GetKeyDown(KeyCode.E) && !EnEscalera)
-        {
-            StartCoroutine(SubirBajar());
-        }
-        Debug.Log("EEEEEEEE");
-       /* if (collision.CompareTag("EscaleraA"))
-        {
-            punto1Bool = true;
-            punto2Bool = false;
-        }
-        if (collision.CompareTag("EscaleraB"))
-        {
-            punto1Bool = false;
-            punto2Bool = true;
-        }*/
-    }
+   
 }
