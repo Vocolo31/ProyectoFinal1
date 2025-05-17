@@ -23,6 +23,8 @@ public class SubirYBajar : MonoBehaviour
             Debug.Log("Subiendo");
             Player.transform.position = puntoMover.transform.position;
             yaTeletransportado = true;
+
+
             
         }
     }
