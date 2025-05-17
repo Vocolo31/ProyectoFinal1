@@ -20,7 +20,7 @@ public class SubirYBajar : MonoBehaviour
 
         if (puedoPasarArriva)
         {
-            Debug.Log("Subiendo...");
+            Debug.Log("Subiendo");
             Player.transform.position = puntoMover.transform.position;
             yaTeletransportado = true;
             
