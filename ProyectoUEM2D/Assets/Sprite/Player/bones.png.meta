@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 73319ef7cd41dc84d9da348603cbc02e
+guid: 82957837d012efe4289d4cce0f898893
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,55 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MainCharacter-Sheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1e5e42ad3da3dd74696c387682913564
-      internalID: -1919864616
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MainCharacter-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 427fa8700d2f5434fa90f438a619ab9a
-      internalID: -681446859
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MainCharacter-Sheet_2
+      name: bones_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54709581115633a4880ea8a04afcd350
-      internalID: -2129759012
+      spriteID: 4daafd15b480b9e47ada32820f4d7c61
+      internalID: -2066245148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainCharacter-Sheet_3
+      name: bones_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 16
         y: 0
-        width: 64
-        height: 64
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 114e1296dca774f45a2c9132d0a36e3f
-      internalID: 1949618940
+      spriteID: 305a8a45712deb34193bfbc11bd0c08f
+      internalID: -309308452
       vertices: []
       indices: 
       edges: []
@@ -203,13 +161,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures:
-    - texture: {fileID: 2800000, guid: 7f645e7db1238914c9d8f94db6398842, type: 3}
+    - texture: {fileID: 2800000, guid: 0bedd937193baf546a746cda8cc81244, type: 3}
       name: _NormalMap
     nameFileIdTable:
-      MainCharacter-Sheet_0: -1919864616
-      MainCharacter-Sheet_1: -681446859
-      MainCharacter-Sheet_2: -2129759012
-      MainCharacter-Sheet_3: 1949618940
+      bones_0: -2066245148
+      bones_1: -309308452
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
