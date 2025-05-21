@@ -52,11 +52,11 @@ TagManager:
   - name: Midgound
     uniqueID: 3212033899
     locked: 0
-  - name: Player
-    uniqueID: 733203985
-    locked: 0
   - name: Assets
     uniqueID: 2040970275
+    locked: 0
+  - name: Player
+    uniqueID: 733203985
     locked: 0
   - name: Forergound
     uniqueID: 377762865
