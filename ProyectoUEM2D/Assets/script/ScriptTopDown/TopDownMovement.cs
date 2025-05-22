@@ -25,7 +25,7 @@ public class TopDownMovement : MonoBehaviour
     public GameObject tr;
     private bool dashing;
     private bool canDash = true;
-    
+
     public void Start()
     {
         changeBehaviour = GetComponent<ChangeBehaviour>();
@@ -47,12 +47,12 @@ public class TopDownMovement : MonoBehaviour
     public void Walking()
     {
         // Contolr de movimiento. asegura que el personaje quede quieto cuando la camara pasa a lateral
-        
+
         directionY = Input.GetAxisRaw("Vertical");
         directionX = Input.GetAxisRaw("Horizontal");
-        
 
-        Vector2 input = new Vector2 (directionX, directionY).normalized;
+
+        Vector2 input = new Vector2(directionX, directionY).normalized;
         animatorTop.SetFloat("Blend", input.magnitude);
 
         if (input.magnitude > 0)
@@ -63,7 +63,7 @@ public class TopDownMovement : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
-        
+
         // Voltear personaje según la dirección
         if (directionX < 0)
         {
@@ -92,35 +92,29 @@ public class TopDownMovement : MonoBehaviour
         dashing = true;
         canDash = false;
 
-        // Obtener la dirección del input
         Vector2 directionYX = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        // Si el jugador no está tocando ninguna dirección
         if (directionYX == Vector2.zero)
         {
-            directionYX = Vector2.right;
+            dashing = false;
+            canDash = true;
+            yield break;
         }
 
-        // Activar estela 
-        tr.SetActive(true);
-            
-        // Aplicar la fuerza del dash
+        if (tr != null)
+            tr.SetActive(true);
+
         rb.velocity = directionYX * dashForce;
 
         yield return new WaitForSeconds(dashinTime);
-        
+
         rb.velocity = Vector2.zero;
 
-        if (dashing && !canDash)
-        {
+        if (tr != null)
             tr.SetActive(false);
-                
-        }
 
         dashing = false;
         yield return new WaitForSeconds(timeCanDash);
-
         canDash = true;
     }
-   
 }
