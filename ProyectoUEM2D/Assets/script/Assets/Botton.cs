@@ -9,6 +9,7 @@ public class Botton : MonoBehaviour
     public bool activo;
     public Animator puert;
     public Puestas puertaScript;
+    public Animator button;
 
     public void Start()
     {
@@ -16,16 +17,16 @@ public class Botton : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerTop"))
+        if (collision.gameObject.CompareTag("Feets"))
         {
             activo = true;
             puerta();
+            puertaScript.ChangeSortingLayer();
             puertaScript.col.enabled = false;
             Debug.Log("si");
-
         }
 
-
+        button.SetBool("Active", true);
 
     }
 

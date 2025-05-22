@@ -5,11 +5,17 @@ using UnityEngine;
 public class Puestas : MonoBehaviour
 {
     public Collider2D col;
+    public Animator animator;
 
     private void Start()
     {
-        col = GetComponent<Collider2D>();
+        col = GetComponent<BoxCollider2D>();
+    }
 
+    public void ChangeSortingLayer()
+    {
+        GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
+        GetComponent<SpriteRenderer>().sortingOrder = 5;
     }
 
 }
