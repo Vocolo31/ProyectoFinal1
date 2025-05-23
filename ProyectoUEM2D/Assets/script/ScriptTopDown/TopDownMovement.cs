@@ -17,6 +17,7 @@ public class TopDownMovement : MonoBehaviour
     public CameraChange cameraChange;
     public bool moveControl = false;
     private Vector2 lastDirection = Vector2.down;
+    public float longitudrayCast = 2f;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashinTime = 0.2f;
@@ -111,7 +112,7 @@ public class TopDownMovement : MonoBehaviour
                 animatorTop.SetBool("IdleFront", false);
             }
 
-            
+
         }
 
         // Flip horizontal solo X
@@ -132,7 +133,11 @@ public class TopDownMovement : MonoBehaviour
             animatorTop.SetTrigger("AttackTop");
         }
     }
-
+    public void detecta()
+    {
+        // Raycast hacia el suelo 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longitudrayCast);
+    }
     public void deactivatingTrigger()
     {
         changeBehaviour.enabled = cameraChange.activateTop;
@@ -179,5 +184,13 @@ public class TopDownMovement : MonoBehaviour
         dashing = false;
         yield return new WaitForSeconds(timeCanDash);
         canDash = true;
+    }
+    private void OnDrawGizmos()
+    {
+        //color del raycast
+        Gizmos.color = Color.red;
+
+        // posicion del raycast y direccion del mismo
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * longitudrayCast);
     }
 }
