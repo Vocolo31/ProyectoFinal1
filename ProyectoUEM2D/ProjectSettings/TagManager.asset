@@ -11,6 +11,8 @@ TagManager:
   - EscaleraB
   - Feets
   - Door
+  - Tutorial1
+  - Void
   layers:
   - Default
   - TransparentFX
