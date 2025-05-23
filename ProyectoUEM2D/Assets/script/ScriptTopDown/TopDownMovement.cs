@@ -16,6 +16,7 @@ public class TopDownMovement : MonoBehaviour
     ChangeBehaviour changeBehaviour;
     public CameraChange cameraChange;
     public bool moveControl = false;
+    private Vector2 lastDirection = Vector2.down;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashinTime = 0.2f;
@@ -70,6 +71,12 @@ public class TopDownMovement : MonoBehaviour
         // Normalizar el vector para que la velocidad sea constante en diagonal
         Vector2 input = new Vector2(directionX, directionY).normalized;
 
+        // Guardar última dirección si hay movimiento
+        if (input.magnitude > 0.1f)
+        {
+            lastDirection = input;
+        }
+
         // Enviar datos al Animator
         animatorTop.SetFloat("Blend", directionX);
         animatorTop.SetFloat("BlendY", directionY);
@@ -77,22 +84,34 @@ public class TopDownMovement : MonoBehaviour
         // Determinar cuál eje domina
         if (Mathf.Abs(directionX) > Mathf.Abs(directionY) + 0.1f)
         {
-            Debug.Log("funciona");
-            animatorTop.SetFloat("Transicion", 0); 
+            animatorTop.SetFloat("Transicion", 0);
         }
         else if (Mathf.Abs(directionY) > Mathf.Abs(directionX) + 0.1f)
         {
-            animatorTop.SetFloat("Transicion", 1); 
+            animatorTop.SetFloat("Transicion", 1);
         }
 
         // Aplicar movimiento
         if (input.magnitude > 0)
         {
             rb.velocity = input * speed;
+            animatorTop.SetBool("IdleFront", false); // Se está moviendo, desactivar idle frontal
         }
         else
         {
             rb.velocity = Vector2.zero;
+
+            // Activar Idle frontal si última dirección fue hacia abajo
+            if (lastDirection.y < -0.5f)
+            {
+                animatorTop.SetBool("IdleFront", true);
+            }
+            else
+            {
+                animatorTop.SetBool("IdleFront", false);
+            }
+
+            
         }
 
         // Flip horizontal solo X
