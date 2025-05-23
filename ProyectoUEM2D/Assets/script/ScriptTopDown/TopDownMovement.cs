@@ -23,8 +23,9 @@ public class TopDownMovement : MonoBehaviour
     [SerializeField] private float timeCanDash = 1f;
 
     public GameObject tr;
-    private bool dashing;
-    private bool canDash = true;
+    public bool dashing;
+    public bool canDash = true;
+    public bool movingPuck = false;
 
     public void Start()
     {
@@ -44,32 +45,62 @@ public class TopDownMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Door"))
+        {
+            movingPuck = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Door"))
+        {
+            movingPuck = false;
+        }
+    }
+
     public void Walking()
     {
-        // Contolr de movimiento. asegura que el personaje quede quieto cuando la camara pasa a lateral
-
+        // Obtener input del jugador
         directionY = Input.GetAxisRaw("Vertical");
         directionX = Input.GetAxisRaw("Horizontal");
 
-
+        // Normalizar el vector para que la velocidad sea constante en diagonal
         Vector2 input = new Vector2(directionX, directionY).normalized;
-        animatorTop.SetFloat("Blend", input.magnitude);
 
+        // Enviar datos al Animator
+        animatorTop.SetFloat("Blend", directionX);
+        animatorTop.SetFloat("BlendY", directionY);
+
+        // Determinar cuál eje domina
+        if (Mathf.Abs(directionX) > Mathf.Abs(directionY) + 0.1f)
+        {
+            Debug.Log("funciona");
+            animatorTop.SetFloat("Transicion", 0); 
+        }
+        else if (Mathf.Abs(directionY) > Mathf.Abs(directionX) + 0.1f)
+        {
+            animatorTop.SetFloat("Transicion", 1); 
+        }
+
+        // Aplicar movimiento
         if (input.magnitude > 0)
         {
-            rb.velocity = input.normalized * speed;
+            rb.velocity = input * speed;
         }
         else
         {
             rb.velocity = Vector2.zero;
         }
 
-        // Voltear personaje según la dirección
-        if (directionX < 0)
+        // Flip horizontal solo X
+        if (directionX < 0 && directionY == 0)
         {
             transform.localScale = new Vector2(-1, 1);
         }
-        else if (directionX > 0)
+        else if (directionX > 0 && directionY == 0)
         {
             transform.localScale = new Vector2(1, 1);
         }
@@ -92,9 +123,9 @@ public class TopDownMovement : MonoBehaviour
         dashing = true;
         canDash = false;
 
-        Vector2 directionYX = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        Vector2 dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        if (directionYX == Vector2.zero)
+        if (dashDirection == Vector2.zero)
         {
             dashing = false;
             canDash = true;
@@ -102,17 +133,30 @@ public class TopDownMovement : MonoBehaviour
         }
 
         if (tr != null)
+        {
             tr.SetActive(true);
+        }
 
-        rb.velocity = directionYX * dashForce;
+        float elapsedTime = 0f;
+        float currentDashForce = dashForce;
 
-        yield return new WaitForSeconds(dashinTime);
+        while (elapsedTime < dashinTime)
+        {
+            rb.velocity = dashDirection * currentDashForce;
+
+            // Suavizar el dash reduciendo la fuerza con el tiempo
+            currentDashForce = Mathf.Lerp(dashForce, 0f, elapsedTime / dashinTime);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
 
         rb.velocity = Vector2.zero;
 
         if (tr != null)
+        {
             tr.SetActive(false);
-
+        }
         dashing = false;
         yield return new WaitForSeconds(timeCanDash);
         canDash = true;
