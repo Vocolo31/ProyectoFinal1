@@ -63,15 +63,29 @@ public class TopDownMovement : MonoBehaviour
 
     public void Walking()
     {
+        // Obtener input del jugador
         directionY = Input.GetAxisRaw("Vertical");
         directionX = Input.GetAxisRaw("Horizontal");
 
+        // Normalizar el vector para que la velocidad sea constante en diagonal
         Vector2 input = new Vector2(directionX, directionY).normalized;
 
-        // Enviar valores al Animator
+        // Enviar datos al Animator
         animatorTop.SetFloat("Blend", directionX);
         animatorTop.SetFloat("BlendY", directionY);
 
+        // Determinar cuál eje domina
+        if (Mathf.Abs(directionX) > Mathf.Abs(directionY) + 0.1f)
+        {
+            Debug.Log("funciona");
+            animatorTop.SetFloat("Transicion", 0); 
+        }
+        else if (Mathf.Abs(directionY) > Mathf.Abs(directionX) + 0.1f)
+        {
+            animatorTop.SetFloat("Transicion", 1); 
+        }
+
+        // Aplicar movimiento
         if (input.magnitude > 0)
         {
             rb.velocity = input * speed;
