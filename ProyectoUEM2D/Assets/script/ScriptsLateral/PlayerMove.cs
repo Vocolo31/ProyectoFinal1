@@ -48,7 +48,6 @@ public class PlayerMove : MonoBehaviour
         dead();
         jump();
     }
-
     private void Move()
     {
         float direccion = Input.GetAxisRaw("Horizontal");

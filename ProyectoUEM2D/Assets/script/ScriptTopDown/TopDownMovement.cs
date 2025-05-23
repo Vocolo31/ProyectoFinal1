@@ -25,6 +25,7 @@ public class TopDownMovement : MonoBehaviour
     public GameObject tr;
     private bool dashing;
     private bool canDash = true;
+    public bool movingPuck = false;
 
     public void Start()
     {
@@ -41,6 +42,22 @@ public class TopDownMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C) && canDash)
         {
             StartCoroutine(DashCoroutine());
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Door"))
+        {
+            movingPuck = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Door"))
+        {
+            movingPuck = false;
         }
     }
 
