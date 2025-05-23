@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -29,6 +30,10 @@ public class TopDownMovement : MonoBehaviour
     public bool canDash = true;
     public bool movingPuck = false;
 
+    public LayerMask agujero;
+    public bool hit;
+    public bool falling;
+
     public void Start()
     {
         changeBehaviour = GetComponent<ChangeBehaviour>();
@@ -45,6 +50,7 @@ public class TopDownMovement : MonoBehaviour
         {
             StartCoroutine(DashCoroutine());
         }
+        detecting();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -192,5 +198,12 @@ public class TopDownMovement : MonoBehaviour
 
         // posicion del raycast y direccion del mismo
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * longitudrayCast);
+    }
+
+    void detecting()
+    {
+        RaycastHit2D raycastInfo = Physics2D.Raycast(transform.position, Vector2.down, longitudrayCast, agujero);
+        hit = raycastInfo.collider != null;
+        falling = hit;
     }
 }
