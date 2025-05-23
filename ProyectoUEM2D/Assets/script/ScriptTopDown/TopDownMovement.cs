@@ -23,8 +23,8 @@ public class TopDownMovement : MonoBehaviour
     [SerializeField] private float timeCanDash = 1f;
 
     public GameObject tr;
-    private bool dashing;
-    private bool canDash = true;
+    public bool dashing;
+    public bool canDash = true;
     public bool movingPuck = false;
 
     public void Start()
