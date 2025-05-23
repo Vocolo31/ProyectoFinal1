@@ -9,6 +9,7 @@ TagManager:
   - PlayerTop
   - EscaleraA
   - EscaleraB
+  - Feets
   layers:
   - Default
   - TransparentFX
@@ -46,10 +47,10 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Backgound
+  - name: Background
     uniqueID: 3875885953
     locked: 0
-  - name: Midgound
+  - name: Midground
     uniqueID: 3212033899
     locked: 0
   - name: Assets
@@ -58,7 +59,7 @@ TagManager:
   - name: Player
     uniqueID: 733203985
     locked: 0
-  - name: Forergound
+  - name: Foreground
     uniqueID: 377762865
     locked: 0
   - name: Roof
