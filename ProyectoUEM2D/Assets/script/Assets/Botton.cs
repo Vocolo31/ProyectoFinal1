@@ -10,19 +10,25 @@ public class Botton : MonoBehaviour
     public Animator puert;
     public Puestas puertaScript;
     public Animator button;
+    BoxCollider2D colliderPlaca;
 
     public void Start()
     {
-        
+        colliderPlaca = GetComponent<BoxCollider2D>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Feets"))
         {
             activo = true;
+            colliderPlaca.enabled = false;
+            puertaScript.cargasActivas++;
             puerta();
-            puertaScript.ChangeSortingLayer();
-            puertaScript.col.enabled = false;
+            if (puertaScript.cargasActivas == puertaScript.cargasNecesarias)
+            {
+                puertaScript.ChangeSortingLayer();
+                puertaScript.col.enabled = false;
+            }
             Debug.Log("si");
         }
 
@@ -32,7 +38,7 @@ public class Botton : MonoBehaviour
 
     void puerta()
     {
-        if (activo)
+        if (puertaScript.cargasActivas == puertaScript.cargasNecesarias)
         {
             puert.SetBool("Open", true);
         }
