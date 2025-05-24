@@ -6,6 +6,8 @@ public class Puestas : MonoBehaviour
 {
     public Collider2D col;
     public Animator animator;
+    public int cargasNecesarias;
+    public int cargasActivas;
 
     private void Start()
     {
