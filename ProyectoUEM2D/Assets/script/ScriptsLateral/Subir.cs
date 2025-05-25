@@ -1,38 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class SubirYBajar : MonoBehaviour
 {
-    public GameObject puntoMover;
+    public GameObject puntoMover;     // Punto al que se moverá el jugador
+    public GameObject Player;         // Referencia al jugador
 
     public bool puedoPasarArriva = true;
-    public bool puedoPasarAbajo;
-    public GameObject Player;
+    public bool puedoPasarAbajo = false;
 
-    private bool yaTeletransportado = false;
+    private bool haSalidoDelTrigger = true;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (yaTeletransportado) return;
+        if (collision.gameObject != Player) return;
 
-        if (puedoPasarArriva)
+        if (haSalidoDelTrigger)
         {
-            Debug.Log("Subiendo");
-            Player.transform.position = puntoMover.transform.position;
-            yaTeletransportado = true;
-
-
-            
+            if (puedoPasarArriva || puedoPasarAbajo)
+            {
+                Debug.Log(puedoPasarArriva ? "Subiendo..." : "Bajando...");
+                Player.transform.position = puntoMover.transform.position;
+                haSalidoDelTrigger = false;
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        // Reseteamos la bandera cuando sale del trigger
-        yaTeletransportado = false;
-        puedoPasarAbajo = true;
+        if (collision.gameObject == Player)
+        {
+            haSalidoDelTrigger = true;
+        }
     }
 }

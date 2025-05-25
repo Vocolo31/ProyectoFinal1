@@ -33,6 +33,15 @@ public class Agujero : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Feets"))
+        {
+            yaCayo = false;
+        }
+    }
+
+
     private IEnumerator CambiarConfinerYTransicion()
     {
         // Esperamos un frame por si acaso
