@@ -8,8 +8,9 @@ public class Agujero : MonoBehaviour
     public GameObject player;
 
     [Header("Cinemachine")]
-    public CinemachineVirtualCamera virtualCam;       // Cámara virtual
-    public PolygonCollider2D nuevoConfiner;           // Confiner de la nueva sala
+    public CinemachineVirtualCamera virtualCam;        // Cámara actual
+    public CinemachineVirtualCamera camaraNueva;       // Nueva cámara a activar
+    public PolygonCollider2D nuevoConfiner;            // Nuevo confiner para la nueva cámara
 
     private bool yaCayo = false;
 
@@ -27,7 +28,7 @@ public class Agujero : MonoBehaviour
                     player.transform.position.y - 21f
                 );
 
-                // Hacemos el corte y cambiamos el confiner
+                // Iniciar la transición
                 StartCoroutine(CambiarConfinerYTransicion());
             }
         }
@@ -41,40 +42,45 @@ public class Agujero : MonoBehaviour
         }
     }
 
-
     private IEnumerator CambiarConfinerYTransicion()
     {
-        // Esperamos un frame por si acaso
         yield return null;
 
-        // Referencia al confiner
-        CinemachineConfiner2D confiner = virtualCam.GetComponent<CinemachineConfiner2D>();
-        if (confiner != null && nuevoConfiner != null)
+        // Cambiar el confiner de la nueva cámara
+        if (camaraNueva != null && nuevoConfiner != null)
         {
-            confiner.enabled = false;
-            yield return null;
-            confiner.m_BoundingShape2D = nuevoConfiner;
-            confiner.enabled = true;
+            CinemachineConfiner2D nuevoC = camaraNueva.GetComponent<CinemachineConfiner2D>();
+            if (nuevoC != null)
+            {
+                nuevoC.enabled = false;
+                yield return null;
+                nuevoC.m_BoundingShape2D = nuevoConfiner;
+                nuevoC.InvalidateCache();
+                nuevoC.enabled = true;
+            }
         }
 
-        // Referencia al Framing Transposer para modificar el damping
-        CinemachineFramingTransposer transposer = virtualCam.GetCinemachineComponent<CinemachineFramingTransposer>();
+        // TRANSICIÓN DE CÁMARA (cut)
+        if (virtualCam != null)
+            virtualCam.gameObject.SetActive(false);
 
+        if (camaraNueva != null)
+            camaraNueva.gameObject.SetActive(true);
+
+        // TRANSICIÓN SUAVE DE FOLLOW (desactivar damping por 1s)
+        CinemachineFramingTransposer transposer = camaraNueva.GetCinemachineComponent<CinemachineFramingTransposer>();
         if (transposer != null)
         {
-            // Guardamos el damping original
-            float dampingOriginal = transposer.m_XDamping;
+            float dampingOriginalX = transposer.m_XDamping;
+            float dampingOriginalY = transposer.m_YDamping;
 
-            // Apagamos el smoothing (corte duro)
             transposer.m_XDamping = 0;
             transposer.m_YDamping = 0;
 
-            // Esperamos 1 segundo
             yield return new WaitForSeconds(1f);
 
-            // Restauramos damping
-            transposer.m_XDamping = dampingOriginal;
-            transposer.m_YDamping = dampingOriginal; // opcional si Y también lo usas
+            transposer.m_XDamping = dampingOriginalX;
+            transposer.m_YDamping = dampingOriginalY;
         }
     }
 }

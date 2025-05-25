@@ -37,7 +37,7 @@ public class Transicion : MonoBehaviour
     }
     public void cambios()
     {
-        cambio.cambioCamara();
+      
     }
     
 
