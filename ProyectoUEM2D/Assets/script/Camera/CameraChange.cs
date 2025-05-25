@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,28 +9,34 @@ public class CameraChange : MonoBehaviour
     public GameObject LateralChar;
     public GameObject TopChar;
     public PlayerMove lateralPlayer;
-    public ChangeBehaviour ChangeBehaviour;
     public TopDownMovement TopPlayer;
-    public Vector3 lateralPlayerPosition;
-    public Vector3 TopPlayerPosition;
+    public Vector2 lateralPlayerPosition;
+    public Vector2 TopPlayerPosition;
     public bool activateTop;
     bool onTime = true;
-    public float cooldownTime;
+    public float cooldownTime = 0.5f; // Ajusta el cooldown como prefieras
     public Transicion transicion;
+
+    private void Start()
+    {
+        TopPlayerPosition = TopPlayer.transform.position;
+        lateralPlayerPosition = lateralPlayer.transform.position;
+    }
+
     void Update()
     {
-        PlayerMove playerMove = LateralChar.GetComponent<PlayerMove>();
-        TopDownMovement topDownMovement = TopChar.GetComponent<TopDownMovement>();
-
-       
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            cambioCamara(); // Puedes seguir invocándolo desde aquí
+        }
     }
 
     void Detection()
     {
-            activateTop = LateralCamera.activeSelf;
+        activateTop = LateralCamera.activeSelf;
 
-            TopDownCamera.SetActive(activateTop);
-            LateralCamera.SetActive(!activateTop);
+        TopDownCamera.SetActive(activateTop);
+        LateralCamera.SetActive(!activateTop);
     }
 
     IEnumerator changeTime(float time)
@@ -40,29 +46,31 @@ public class CameraChange : MonoBehaviour
         onTime = true;
     }
 
+    // Esta función puedes seguir llamándola desde el evento en la animación
     public void cambioCamara()
     {
+        if (!onTime) return;
+
         PlayerMove playerMove = LateralChar.GetComponent<PlayerMove>();
         TopDownMovement topDownMovement = TopChar.GetComponent<TopDownMovement>();
-        if (onTime && (ChangeBehaviour.enabled.Equals(false) || ChangeBehaviour.canChange))
-        {
-            Detection();
-            StartCoroutine(changeTime(cooldownTime));
 
-        }
+        Detection();
+        StartCoroutine(changeTime(cooldownTime));
+
         if (activateTop)
         {
-            /* lateralPlayerPosition = lateralPlayer.transform.position;
-             TopPlayer.transform.position = new Vector3(lateralPlayerPosition.x, 25f, -0.5f);*/
+            // De lateral → top
+            lateralPlayerPosition = lateralPlayer.transform.position;
+            TopPlayer.transform.position = new Vector2(lateralPlayerPosition.x, TopPlayer.transform.position.y);
 
             playerMove.enabled = false;
             topDownMovement.enabled = true;
         }
-
-        else if (!activateTop)
+        else
         {
-            /*TopPlayerPosition = TopPlayer.transform.position;
-             lateralPlayer.transform.position = new Vector3(TopPlayerPosition.x, -0.450f, -0.500f);*/
+            // De top → lateral
+            TopPlayerPosition = TopPlayer.transform.position;
+            lateralPlayer.transform.position = new Vector2(TopPlayerPosition.x, lateralPlayer.transform.position.y);
 
             topDownMovement.enabled = false;
             playerMove.enabled = true;
