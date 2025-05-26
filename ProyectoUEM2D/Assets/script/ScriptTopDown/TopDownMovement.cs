@@ -46,7 +46,7 @@ public class TopDownMovement : MonoBehaviour
     {
         Walking();
         deactivatingTrigger();
-        if (Input.GetKeyDown(KeyCode.C) && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(DashCoroutine());
         }

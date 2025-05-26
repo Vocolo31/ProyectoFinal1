@@ -20,6 +20,7 @@ public class bloqueador : MonoBehaviour
     {
         if (collision.CompareTag("PlayerTop"))
         {
+            Debug.Log("salio");
             cambioCamaraManager.cambioCamaraPermitido = true;
         }
     }
