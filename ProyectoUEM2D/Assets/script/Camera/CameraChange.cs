@@ -10,6 +10,8 @@ public class CameraChange : MonoBehaviour
     public GameObject LateralChar;
     public GameObject TopChar;
 
+    public ControladorNivel newCamera;
+
     public PlayerMove lateralPlayer;
     public TopDownMovement TopPlayer;
 
@@ -68,7 +70,11 @@ public class CameraChange : MonoBehaviour
             TopPlayer.transform.position = new Vector2(lateralPlayerPosition.x, TopPlayer.transform.position.y);
 
             LateralCamera.SetActive(false);
+            if (newCamera.pisoActual == 1)
             TopDownCamera.SetActive(true);
+
+            if (newCamera.pisoActual > 1)
+                TopDownCamera.SetActive(false);
 
             playerMove.enabled = false;
             topDownMovement.enabled = true;

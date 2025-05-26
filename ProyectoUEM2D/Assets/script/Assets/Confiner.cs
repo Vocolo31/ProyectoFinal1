@@ -7,6 +7,8 @@ public class Confiner : MonoBehaviour
     public CinemachineVirtualCamera camaraActual;
     public CinemachineVirtualCamera camaraNueva;
 
+    public bool InNewCamera = false;
+
     [Header("Nuevo Confiner")]
     public Collider2D nuevoConfiner;
 
@@ -32,19 +34,31 @@ public class Confiner : MonoBehaviour
             {
                 confiner.m_BoundingShape2D = nuevoConfiner;
                 confiner.InvalidateCache(); // Necesario para aplicar el nuevo collider
-                Debug.Log("✅ Confiner cambiado correctamente.");
+                Debug.Log("Confiner cambiado correctamente.");
             }
             else
             {
-                Debug.LogWarning("⚠️ No se pudo cambiar el confiner: falta asignar uno o ambos.");
+                Debug.LogWarning(" No se pudo cambiar el confiner: falta asignar uno o ambos.");
             }
 
             // Activar la nueva cámara y desactivar la actual
             if (camaraActual != null)
+            {
                 camaraActual.gameObject.SetActive(false);
 
+                InNewCamera = true;
+                 
+            }
+                
+
             if (camaraNueva != null)
+            {
                 camaraNueva.gameObject.SetActive(true);
+
+                InNewCamera = false;
+            }
+                
+
         }
     }
 }
