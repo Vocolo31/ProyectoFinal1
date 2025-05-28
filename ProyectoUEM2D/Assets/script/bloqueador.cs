@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class bloqueador : MonoBehaviour
 {
-    public CameraChange cambioCamaraManager;
+    public CameraChangeNew cambioCamaraManager;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PlayerTop"))
+        if (collision.CompareTag("PlayerTop") || collision.CompareTag("Player"))
         {
             Debug.Log("s");
             cambioCamaraManager.cambioCamaraPermitido = false;
@@ -18,7 +18,7 @@ public class bloqueador : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("PlayerTop"))
+        if (collision.CompareTag("PlayerTop") || collision.CompareTag("Player"))
         {
             Debug.Log("salio");
             cambioCamaraManager.cambioCamaraPermitido = true;

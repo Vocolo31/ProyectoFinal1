@@ -12,6 +12,8 @@ public class CameraChangeNew : MonoBehaviour
 
     private bool isTopDownActive = false;
 
+    public bool cambioCamaraPermitido = true;
+
     void Start()
     {
         SetCameraView();
@@ -21,7 +23,7 @@ public class CameraChangeNew : MonoBehaviour
     {
         FollowPlayers(); // Hacer que ambas cámaras sigan a sus jugadores
 
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J) && cambioCamaraPermitido == true)
         {
             isTopDownActive = !isTopDownActive;
             SyncPlayerPosition();

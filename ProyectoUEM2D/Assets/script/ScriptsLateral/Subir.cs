@@ -28,7 +28,7 @@ public class SubirYBajar : MonoBehaviour
                 Player.transform.position = puntoMover.transform.position;
                 haSalidoDelTrigger = false;
 
-                //PlayerL.transform.position = puntoMoverL.transform.position;
+                PlayerL.transform.position = puntoMoverL.transform.position;
             }
         }
     }

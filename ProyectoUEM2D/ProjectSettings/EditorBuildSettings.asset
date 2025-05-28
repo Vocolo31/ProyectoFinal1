@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VocoloTesting.unity
     guid: d86c04394b69044429340fe8acaf815d
+  - enabled: 1
+    path: Assets/Scenes/Lv.2.unity
+    guid: 2eec2f64c5ce329498e99e411b99927e
   m_configObjects: {}

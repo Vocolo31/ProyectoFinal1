@@ -15,6 +15,7 @@ TagManager:
   - Void
   - Cambio
   - segundoPiso
+  - Lava
   layers:
   - Default
   - TransparentFX

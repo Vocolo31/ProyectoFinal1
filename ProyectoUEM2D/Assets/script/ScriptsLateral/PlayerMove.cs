@@ -28,12 +28,14 @@ public class PlayerMove : MonoBehaviour
     Animator animator; // controlador de animaci�n
     float direction;
     private Dash dash;
+    private Vector2 startposition;
 
     public bool moveControlerL = true;
     public float Directtion => direction;
 
     void Start()
     {
+        startposition = transform.position;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         dash = GetComponent<Dash>();
@@ -157,13 +159,21 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-   /* public void damage()
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        vidaActual -= 1;
+        if (collision.gameObject.CompareTag("Lava"))
+        {
+            transform.position = startposition;
+        }
+    }
 
-        // llamado a la animacion de da�o
-        animator.SetTrigger("Damage"); 
-    }*/
+    /* public void damage()
+     {
+         vidaActual -= 1;
+
+         // llamado a la animacion de da�o
+         animator.SetTrigger("Damage"); 
+     }*/
 
     public void dead()
     {

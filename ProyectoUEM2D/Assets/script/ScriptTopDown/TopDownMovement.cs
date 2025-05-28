@@ -4,6 +4,7 @@ using Unity.Burst.CompilerServices;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.WSA;
 
 public class TopDownMovement : MonoBehaviour
@@ -19,6 +20,7 @@ public class TopDownMovement : MonoBehaviour
     public bool moveControl = false;
     private Vector2 lastDirection = Vector2.down;
     public float longitudrayCast = 2f;
+    private Vector2 startposition;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashinTime = 0.2f;
@@ -39,6 +41,8 @@ public class TopDownMovement : MonoBehaviour
         changeBehaviour = GetComponent<ChangeBehaviour>();
         rb = GetComponent<Rigidbody2D>();
         animatorTop = GetComponent<Animator>();
+        startposition = transform.position;
+
 
     }
 
@@ -58,6 +62,12 @@ public class TopDownMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Door"))
         {
             movingPuck = true;
+        }
+        
+        if (collision.gameObject.CompareTag("Lava"))
+        {
+            Debug.Log("Entra a la lava");
+            transform.position = startposition;
         }
     }
 
