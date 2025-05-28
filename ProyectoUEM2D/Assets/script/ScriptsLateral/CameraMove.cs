@@ -1,32 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMove : MonoBehaviour
+public class CharacterFollower : MonoBehaviour
 {
-    public Vector3 desplazamiento; // Ajustes para la posicion de la camara
-    public float smoothTime = 0.25f;
-    public Transform objetivo; // El objeto que seguirá la cámara
+    public Transform objetivo1;
     public Transform objetivo2;
-    private Vector3 velocidad = Vector3.zero;
-    public TopDownMovement topCharacter;
+    public TopDownMovement topCharacter; // Para saber si está siguiendo puck o no
+    public float smoothTime = 0.25f;
+    private Vector3 velocity = Vector3.zero;
+    public Vector3 offset = Vector3.zero;
 
-    private void LateUpdate() // Mejor usar LateUpdate para evitar jitter con el movimiento del jugador
+    void Update()
     {
-        if (objetivo != null && topCharacter.movingPuck.Equals(false))
+        if (topCharacter == null) return;
+
+        Transform objetivoActual = topCharacter.movingPuck ? objetivo2 : objetivo1;
+
+        if (objetivoActual != null)
         {
-            Vector3 targetPos = objetivo.position + desplazamiento;
-            targetPos.z = transform.position.z; // Mantener la Z de la cámara fija
+            Vector3 targetPosition = objetivoActual.position + offset;
+            targetPosition.z = transform.position.z; // Mantén la posición Z del personaje si estás en 2D
 
-            transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocidad, smoothTime);
-        }
-
-        if (objetivo != null && topCharacter.movingPuck.Equals(true))
-        {
-            Vector3 targetPos = objetivo2.position + desplazamiento;
-            targetPos.z = transform.position.z; // Mantener la Z de la cámara fija
-
-            transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocidad, smoothTime);
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
         }
     }
 }
