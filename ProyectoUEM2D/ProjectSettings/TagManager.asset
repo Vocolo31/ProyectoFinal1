@@ -16,6 +16,7 @@ TagManager:
   - Cambio
   - segundoPiso
   - Lava
+  - tutorial
   layers:
   - Default
   - TransparentFX
