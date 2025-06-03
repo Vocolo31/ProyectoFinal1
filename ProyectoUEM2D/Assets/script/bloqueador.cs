@@ -22,6 +22,7 @@ public class bloqueador : MonoBehaviour
         {
             Debug.Log("salio");
             cambioCamaraManager.cambioCamaraPermitido = true;
+            
         }
     }
 }
