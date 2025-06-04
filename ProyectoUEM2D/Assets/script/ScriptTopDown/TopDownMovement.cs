@@ -36,12 +36,21 @@ public class TopDownMovement : MonoBehaviour
     public bool hit;
     public bool falling;
 
+    [Header("sonidos")]
+    public AudioSource footstepAudio;
+    public float stepRate = 0.4f; // Tiempo entre pasos
+    public float minSpeedToPlay = 0.1f; // Mínima velocidad para sonar
+    private float stepTimer;
+
+
     public void Start()
     {
         changeBehaviour = GetComponent<ChangeBehaviour>();
         rb = GetComponent<Rigidbody2D>();
         animatorTop = GetComponent<Animator>();
         startposition = transform.position;
+        footstepAudio = GetComponent<AudioSource>();
+        
 
 
     }
@@ -55,6 +64,7 @@ public class TopDownMovement : MonoBehaviour
             StartCoroutine(DashCoroutine());
         }
         detecting();
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -140,6 +150,22 @@ public class TopDownMovement : MonoBehaviour
         {
             transform.localScale = new Vector2(1, 1);
         }
+        float velocidad = rb.velocity.magnitude;
+        if (velocidad > minSpeedToPlay)
+        {
+            stepTimer -= Time.deltaTime;
+
+            if (stepTimer <= 0f && !footstepAudio.isPlaying)
+            {
+                footstepAudio.Play();
+                stepTimer = stepRate;
+            }
+        }
+        else
+        {
+            stepTimer = 0f;
+            footstepAudio.Stop(); // Detenemos el sonido si no se mueve
+        }
     }
 
     public void Attack()
@@ -189,8 +215,8 @@ public class TopDownMovement : MonoBehaviour
 
             elapsedTime += Time.deltaTime;
             yield return null;
+            
         }
-
         rb.velocity = Vector2.zero;
 
         if (tr != null)
@@ -216,4 +242,10 @@ public class TopDownMovement : MonoBehaviour
         hit = raycastInfo.collider != null;
         falling = hit;
     }
+
+    public void sonidoCaminar()
+    {
+
+    }
 }
+

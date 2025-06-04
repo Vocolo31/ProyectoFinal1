@@ -19,7 +19,10 @@ public class TutorialActivador : MonoBehaviour
     public void OnTriggerExit2D(Collider2D collision)
     {
         animacion.SetBool("in", false);
-        Destroy(collision.gameObject);
+        if (collision.gameObject.CompareTag("tutorial"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 
 }

@@ -33,12 +33,19 @@ public class PlayerMove : MonoBehaviour
     public bool moveControlerL = true;
     public float Directtion => direction;
 
+    [Header("sonidos")]
+    public AudioSource footstepAudio;
+    public float stepRate = 0.4f; // Tiempo entre pasos
+    public float minSpeedToPlay = 0.1f; // Mínima velocidad para sonar
+    private float stepTimer;
+
     void Start()
     {
         startposition = transform.position;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         dash = GetComponent<Dash>();
+        footstepAudio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -76,6 +83,22 @@ public class PlayerMove : MonoBehaviour
             transform.localScale = new Vector2(1, 1);
         }
         animator.SetFloat("Blend", Mathf.Abs(direccion));
+        float velocidad = rb.velocity.magnitude;
+        if (velocidad > minSpeedToPlay)
+        {
+            stepTimer -= Time.deltaTime;
+
+            if (stepTimer <= 0f && !footstepAudio.isPlaying)
+            {
+                footstepAudio.Play();
+                stepTimer = stepRate;
+            }
+        }
+        else
+        {
+            stepTimer = 0f;
+            footstepAudio.Stop(); // Detenemos el sonido si no se mueve
+        }
     }
 
     public void jump()
