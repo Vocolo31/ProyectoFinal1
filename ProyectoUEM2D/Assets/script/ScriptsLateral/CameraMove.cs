@@ -8,7 +8,13 @@ public class CharacterFollower : MonoBehaviour
     public float smoothTime = 0.25f;
     private Vector3 velocity = Vector3.zero;
     public Vector3 offset = Vector3.zero;
+    public ParticleSystem particleSystem;
 
+    private void Start()
+    {
+        particleSystem = GetComponent<ParticleSystem>();
+
+    }
     void Update()
     {
         if (topCharacter == null) return;

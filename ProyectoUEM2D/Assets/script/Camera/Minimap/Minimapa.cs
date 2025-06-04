@@ -6,17 +6,31 @@ public class Minimapa : MonoBehaviour
     public RawImage rawImageUI;               // Asignar desde el Inspector
     public RenderTexture renderTextureA;      // Primera RenderTexture
     public RenderTexture renderTextureB;      // Segunda RenderTexture
+    public CameraChange bloqueador;
 
     private bool usandoA = true;
 
-    void Update()
+    private void Start()
+    {
+        rawImageUI.texture = renderTextureB;
+    }
+
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            if (rawImageUI != null)
+            if (rawImageUI != null && bloqueador != null && bloqueador.cambioCamaraPermitido)
             {
-                rawImageUI.texture = usandoA ? renderTextureB : renderTextureA;
-                usandoA = !usandoA;
+                if (renderTextureB  != null)
+                {
+                    rawImageUI.texture = renderTextureA;
+                }
+                else if (renderTextureA != null)
+                {
+                    rawImageUI.texture = renderTextureB;
+                }
+                //usandoA = !usandoA;
+                //rawImageUI.texture = usandoA ? renderTextureA : renderTextureB;
             }
         }
     }

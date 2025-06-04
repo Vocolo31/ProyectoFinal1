@@ -26,7 +26,6 @@ public class TopDownMovement : MonoBehaviour
     [SerializeField] private float dashinTime = 0.2f;
     [SerializeField] private float dashForce = 10f;
     [SerializeField] private float timeCanDash = 1f;
-
     public GameObject tr;
     public bool dashing;
     public bool canDash = true;
@@ -59,8 +58,13 @@ public class TopDownMovement : MonoBehaviour
     {
         Walking();
         deactivatingTrigger();
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Debug.Log("Presioné Shift"); // ¿Sale esto?
+        }
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
+            
             StartCoroutine(DashCoroutine());
         }
         detecting();
@@ -190,7 +194,7 @@ public class TopDownMovement : MonoBehaviour
         canDash = false;
 
         Vector2 dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-
+        
         if (dashDirection == Vector2.zero)
         {
             dashing = false;
@@ -208,6 +212,7 @@ public class TopDownMovement : MonoBehaviour
 
         while (elapsedTime < dashinTime)
         {
+            Debug.Log("D");
             rb.velocity = dashDirection * currentDashForce;
 
             // Suavizar el dash reduciendo la fuerza con el tiempo
