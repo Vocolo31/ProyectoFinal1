@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraChange : MonoBehaviour
@@ -18,11 +17,10 @@ public class CameraChange : MonoBehaviour
     public Vector2 lateralPlayerPosition;
     public Vector2 TopPlayerPosition;
 
-    public bool activateTop; // true = TopDown, false = Lateral
-
+    public bool activateTop = false; // true = TopDown, false = Lateral
     public bool cambioCamaraPermitido = true;
 
-    bool onTime = true;
+    private bool onTime = true;
     public float cooldownTime = 0.5f;
 
     public Transicion transicion;
@@ -41,9 +39,19 @@ public class CameraChange : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && cambioCamaraPermitido)
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            cambioCamara();
+            Debug.Log("Presioné J");
+
+            if (cambioCamaraPermitido)
+            {
+                Debug.Log("Cambio permitido");
+                cambioCamara();
+            }
+            else
+            {
+                Debug.Log("Cambio NO permitido");
+            }
         }
     }
 
@@ -66,15 +74,12 @@ public class CameraChange : MonoBehaviour
         if (!activateTop)
         {
             // De lateral a top-down
+            Debug.Log("Cambiando a TopDown");
             lateralPlayerPosition = lateralPlayer.transform.position;
             TopPlayer.transform.position = new Vector2(lateralPlayerPosition.x, TopPlayer.transform.position.y);
 
             LateralCamera.SetActive(false);
-            if (newCamera.pisoActual == 1)
             TopDownCamera.SetActive(true);
-
-            if (newCamera.pisoActual > 1)
-                TopDownCamera.SetActive(false);
 
             playerMove.enabled = false;
             topDownMovement.enabled = true;
@@ -84,6 +89,7 @@ public class CameraChange : MonoBehaviour
         else
         {
             // De top-down a lateral
+            Debug.Log("Cambiando a Lateral");
             TopPlayerPosition = TopPlayer.transform.position;
             lateralPlayer.transform.position = new Vector2(TopPlayerPosition.x, lateralPlayer.transform.position.y);
 

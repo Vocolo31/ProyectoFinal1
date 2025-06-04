@@ -17,6 +17,7 @@ TagManager:
   - segundoPiso
   - Lava
   - tutorial
+  - PasarLv
   layers:
   - Default
   - TransparentFX

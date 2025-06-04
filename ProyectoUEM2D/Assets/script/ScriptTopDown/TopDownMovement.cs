@@ -1,11 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.WSA;
+
 
 public class TopDownMovement : MonoBehaviour
 {
@@ -16,7 +11,6 @@ public class TopDownMovement : MonoBehaviour
     public float speed;
     public Vector2 position;
     ChangeBehaviour changeBehaviour;
-    public CameraChange cameraChange;
     public bool moveControl = false;
     private Vector2 lastDirection = Vector2.down;
     public float longitudrayCast = 2f;
@@ -57,7 +51,6 @@ public class TopDownMovement : MonoBehaviour
     public void Update()
     {
         Walking();
-        deactivatingTrigger();
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Debug.Log("Presioné Shift"); // ¿Sale esto?
@@ -184,10 +177,7 @@ public class TopDownMovement : MonoBehaviour
         // Raycast hacia el suelo 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longitudrayCast);
     }
-    public void deactivatingTrigger()
-    {
-        changeBehaviour.enabled = cameraChange.activateTop;
-    }
+   
     private IEnumerator DashCoroutine()
     {
         dashing = true;

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class menuInGame : MonoBehaviour
 {
     public GameObject panel;
-    public GameObject panel2;
+    
     public bool panel1Act; // lo use solo para experimentar. Pero hace la funcion de activar y desactivar
     void Update()
     {
@@ -34,14 +34,14 @@ public class menuInGame : MonoBehaviour
         // abre el menu de opciones y cierra el menu InGame
         panel.SetActive(false);
         panel1Act = false;
-        panel2.SetActive(true);
+        
     }
     public void Back()
     {
         // El back de el menu de opciones. Puede que tengamos que cambiarlo para hacerlo mas eficiente
         panel1Act = true;    
         panel.SetActive(panel1Act);
-        panel2.SetActive(!panel1Act);
+        
     }
     public void Resume()
     {
@@ -50,5 +50,14 @@ public class menuInGame : MonoBehaviour
         panel.SetActive(panel1Act);
         Time.timeScale = 1;
     }
-
+    public void Reset()
+    {
+        panel.SetActive(false);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void Salir()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
